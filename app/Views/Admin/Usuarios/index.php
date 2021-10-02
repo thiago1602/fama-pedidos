@@ -27,7 +27,7 @@
                 <h4 class="card-title"><?php echo $titulo; ?></h4>
 
                 <div class="ui-widget">
-                    <input id="query" name="query" class="form-control bg-light mb-5">
+                    <input id="query" name="query" placeholder="Pesquise por um usuario" class="form-control bg-light mb-5">
                 </div>
 
                 <div class="table-responsive">
@@ -45,7 +45,9 @@
 
                         <?php foreach ($usuarios as $usuario): ?>
                         <tr>
-                            <td><?php echo $usuario->nome?></td>
+                            <td>
+                                <a href="<?php echo site_url("admin/usuarios/show/$usuario->id"); ?>"><?php echo $usuario->nome;?></a>
+
                             <td><?php echo $usuario->email?></td>
                             <td><?php echo $usuario->cpf?></td>
 
@@ -84,12 +86,12 @@
             source: function (request, response){
                 $.ajax({
 
-                    url: "<?php echo site_url('admin/usuarios/procurar');?>",
+                    url: "<?php echo site_url('admin/usuarios/procurar'); ?>",
                     dataType: "json",
                     data:{
                       term: request.term
                     },
-                        sucess: function (data){
+                    success: function (data){
 
                         if (data.length < 1){
 
