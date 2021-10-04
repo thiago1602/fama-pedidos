@@ -30,6 +30,11 @@
                     <input id="query" name="query" placeholder="Pesquise por um usuario" class="form-control bg-light mb-5">
                 </div>
 
+                <a href="<?php echo site_url("admin/usuarios/criar");?>" class="btn btn-success float-right mb-5">
+                    <i class="mdi mdi-plus btn-icon-prepend"></i>
+                    Cadastrar
+                </a>
+
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>
@@ -38,6 +43,7 @@
                             <th>E-mail</th>
                             <th>Cpf</th>
                             <th>Ativo</th>
+                            <th>Situação</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -51,13 +57,31 @@
                             <td><?php echo $usuario->email?></td>
                             <td><?php echo $usuario->cpf?></td>
 
-                            <td><?php echo ($usuario->ativo ? '<label class="badge badge-primary">Sim</label>' : '<label class="badge badge-primary">Não</label>'); ?></td>
+                            <td><?php echo ($usuario->ativo && $usuario->deletado_em == null ? '<label class="badge badge-primary">Sim</label>' : '<label class="badge badge-primary">Não</label>'); ?></td>
+
+                            <td>
+                                <?php echo ($usuario->deletado_em == null ? '<label class="badge badge-primary">Disponivel</label>' : '<label class="badge badge-primary">Excluido</label>'); ?>
+
+                                <?php if ($usuario->deletado_em != null): ?>
+
+                                    <a href="<?php echo site_url("admin/usuarios/desfaserexclusao/$usuario->id");?>" class="badge badge-dark ml-2">
+                                        <i class="mdi mdi-undo btn-icon-prepend"></i>
+                                        Desfaser
+                                    </a>
+
+                                <?php endif; ?>
+
+                            </td>
                         </tr>
 
                         <?php endforeach; ?>
 
                         </tbody>
                     </table>
+                </div>
+
+                <div class="mt-3">
+                    <?php echo $pager->links()?>
                 </div>
             </div>
         </div>

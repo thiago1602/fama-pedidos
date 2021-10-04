@@ -7,18 +7,14 @@
 <?php echo $this->section('estilos')?>
 
 
-
 <?php echo $this->endSection()?>
-
-
-
 
 
 <?php echo $this->section('conteudo')?>
 
 
 <div class="row">
-    <div class="col-lg-12 grid-margin stretch-card">
+    <div class="col-lg-6 grid-margin stretch-card">
         <div class="card">
             <div class="card-header bg-primary pb-0 pt-4">
 
@@ -48,9 +44,17 @@
 
 
 
-<?php echo form_open("admin/usuarios/atualizar/$usuario->id"); ?>
+<?php echo form_open("admin/usuarios/excluir/$usuario->id"); ?>
 
-        <?php echo  $this->include('Admin/Usuarios/form'); ?>
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>Atenção!</strong> Tem certeza da exclusão do usuário <strong> <?php echo esc($usuario->nome); ?>?</strong>
+                </div>
+
+
+                <button type="submit" class="btn btn-danger mr-2 btn-sm">
+                    <i class="mdi mdi-trash-can btn-icon-prepend"></i>
+                    Excluir
+                </button>
 
                 <a href="<?php echo site_url("admin/usuarios/show/$usuario->id");?>" class="btn btn-light text-dark btn-sm mr-2 ">
                     <i class="mdi mdi-arrow-left-bold-circle-outline btn-icon-prepend"></i>

@@ -48,15 +48,15 @@
 
 
 
-<?php echo form_open("admin/usuarios/atualizar/$usuario->id"); ?>
+<?php echo form_open("admin/usuarios/cadastrar"); ?>
 
         <?php echo  $this->include('Admin/Usuarios/form'); ?>
 
-                <a href="<?php echo site_url("admin/usuarios/show/$usuario->id");?>" class="btn btn-light text-dark btn-sm mr-2 ">
+
+                <a href="<?php echo site_url("admin/usuarios");?>" class="btn btn-light text-dark btn-sm mr-2 ">
                     <i class="mdi mdi-arrow-left-bold-circle-outline btn-icon-prepend"></i>
                     Voltar
                 </a>
-
 
 <?php echo form_close(); ?>
 
