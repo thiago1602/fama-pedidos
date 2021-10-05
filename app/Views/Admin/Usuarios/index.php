@@ -144,16 +144,6 @@
 
         }); //fim autocomplete
     });
-
-</script>
-
-<script>var LHC_API = LHC_API||{};
-    LHC_API.args = {mode:'widget',lhc_base_url:'//localhost:8000/livehelperchat-master/lhc_web/index.php/',wheight:450,wwidth:350,pheight:520,pwidth:500,leaveamessage:true,check_messages:false,lang:'por/'};
-    (function() {
-        var po = document.createElement('script'); po.type = 'text/javascript'; po.setAttribute('crossorigin','anonymous'); po.async = true;
-        var date = new Date();po.src = 'http://localhost:8000/livehelperchat-master/lhc_web/design/defaulttheme/js/widgetv2/index.js?'+(""+date.getFullYear() + date.getMonth() + date.getDate());
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-    })();
-</script>
+    
 
 <?php echo $this->endSection()?>
