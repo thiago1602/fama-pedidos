@@ -100,4 +100,10 @@ class UsuarioModel extends Model
             ->update();
     }
 
+    /*
+     * @use Classe Autenticacao
+     */
+    public function BuscaUsuarioPorEmail(string $email){
+        return $this->where('email', $email->first());
+    }
 }
