@@ -104,6 +104,6 @@ class UsuarioModel extends Model
      * @use Classe Autenticacao
      */
     public function BuscaUsuarioPorEmail(string $email){
-        return $this->where('email', $email->first());
+        return $this->where('email', $email)->first();
     }
 }
