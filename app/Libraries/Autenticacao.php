@@ -1,5 +1,6 @@
 <?php
 
+namespace App\Libraries;
 /*
  * descricao essa biblioteca cuidara da parte de aut
  */
@@ -9,7 +10,7 @@ class Autenticacao{
 
     public function login(string $email, string $password){
 
-        $usuarioModel = new App\Models\UsuarioModel();
+        $usuarioModel = new \App\Models\UsuarioModel();
 
         $usuario = $usuarioModel->BuscaUsuarioPorEmail($email);
 
@@ -71,7 +72,7 @@ if (!$usuario->verificaPassword($password)){
         }
 
 
-        $usuarioModel = new App\Models\UsuarioModel();
+        $usuarioModel = new \App\Models\UsuarioModel();
         $usuario = $usuarioModel->find(session()->get('usuario_id'));
 
         if ($usuario && $usuario->ativo){
