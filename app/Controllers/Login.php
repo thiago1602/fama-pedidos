@@ -3,6 +3,9 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use CodeIgniter\HTTP\RequestInterface;
+use CodeIgniter\HTTP\ResponseInterface;
+use Psr\Log\LoggerInterface;
 
 class Login extends BaseController
 {
@@ -27,6 +30,12 @@ class Login extends BaseController
 
                 $usuario = $autenticacao->pegaUsuarioLogado();
 
+                if (!$usuario->is_admin){
+
+                    return redirect()->to(site_url('/'));
+
+                }
+
                 return redirect()->to(site_url('admin/home'))->with('sucesso', "Olá $usuario->nome,que bom que está de volta");
             }else{
                 return redirect()->back()->with('atencao', 'Não encontramos suas credenciais de acesso');
@@ -41,6 +50,13 @@ class Login extends BaseController
     {
         service('autenticacao')->logout();
 
-        return redirect()->to(site_url('login'));
+        return redirect()->to(site_url('login/mostraMensagemLogout'));
+    }
+
+    public function mostraMensagemLogout()
+    {
+        return redirect()->to(site_url("login/novo"))
+        ->with('info', 'Esperamos ver você novamente');
+
     }
 }
