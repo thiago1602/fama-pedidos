@@ -74,24 +74,20 @@
                     </div>
                     <h4>Olá, seja bem vindo(a)!</h4>
                     <h6 class="font-weight-light mb-3">Por favor realize o login.</h6>
-                    <?php echo form_open('login/criar'); ?>
+
+                    <?php echo form_open('password/processaesqueci'); ?>
                         <div class="form-group">
                             <input type="email" name="email" value="<?php echo old('email'); ?>" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Digite o seu email">
                         </div>
-                        <div class="form-group">
-                            <input type="password" name="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Digite a sua senha">
-                        </div>
+
                         <div class="mt-3">
                             <button type="submit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" >Conectar-se</button>
                         </div>
 
                     <div class="mt-3 d-flex justify-content-between align-items-center">
-                        <a href="<?php site_url('password/esqueci') ?>" class="auth-link text-black">Esqueci minha senha</a>
+                        <a href="<?php site_url('login') ?>" class="auth-link text-black">Lembrei minha senha</a>
                         </div>
 
-                        <div class="text-center mt-4 font-weight-light">
-                           Ainda não uma conta? <a href="<?php echo site_url('registrar') ?>" class="text-primary">Cadastrar-se</a>
-                        </div>
 
                     <script type="text/javascript">
                         var LHCChatOptions = {};
