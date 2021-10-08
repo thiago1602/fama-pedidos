@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Libraries\Token;
 use CodeIgniter\Database\ConnectionInterface;
 use CodeIgniter\Model;
 use CodeIgniter\Validation\ValidationInterface;
@@ -10,7 +11,7 @@ class UsuarioModel extends Model
 {
     protected $table                = 'usuarios';
     protected $returnType           = 'App\Entities\Usuario';
-    protected $allowedFields        = ['nome', 'email','telefone'];
+    protected $allowedFields        = ['nome', 'email','cpf', 'telefone','password' , 'reset_hash', 'reset_expira_em'];
 
 
     //Datas
@@ -105,5 +106,28 @@ class UsuarioModel extends Model
      */
     public function BuscaUsuarioPorEmail(string $email){
         return $this->where('email', $email)->first();
+
+
+    public function buscaUsuarioPraResetarSenha(string $token)
+    {
+        $token = new Token($token);
+
+
+        $tokenHash = $token->getHash();
+
+        $usuario = $this->where('reset_hash', $tokenHash)->first();
+
+        if ($usuario != null)
+        {
+            if ($usuario->reset_expira_em < date('Y:m:d H:i:s'))
+            {
+                $usuario = null;
+            }
+
+            return $usuario;
+        }
+
+    }
+
     }
 }

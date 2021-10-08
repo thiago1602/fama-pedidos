@@ -23,6 +23,8 @@
             <div class="col-lg-4 mx-auto">
                 <div class="auth-form-light text-left py-5 px-4 px-sm-5">
 
+
+
                     <?php if(session()->has('sucesso')): ?>
 
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -75,20 +77,37 @@
                     <h4>Olá, seja bem vindo(a)!</h4>
                     <h6 class="font-weight-light mb-3">Por favor realize o login.</h6>
 
-                    <?php echo form_open('password/processaesqueci'); ?>
-                        <div class="form-group">
-                            <input type="email" name="email" value="<?php echo old('email'); ?>" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Digite o seu email">
-                        </div>
+                    <?php  if(session()->has('errors_model')): ?>
+
+
+                        <ul>
+                            <?php foreach (session('errors_model') as $error): ?>
+
+
+                                <li class="text-danger">
+                                    <?php echo $error ?>
+
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+
+                    <?php  endif; ?>
+
+                    <?php echo form_open("password/processareset/$token"); ?>
+
+
+                    <div class="form-group">
+                        <label for="password">Nova senha</label>
+                        <input type="password" class="form-control" name="password" id="password">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="confirmation_password">Confirmar nova senha</label>
+                        <input type="password" class="form-control" name="password_confirmation" id="confirmation_password">
+                    </div>
 
                         <div class="mt-3">
-                            <input id="btn-reset-senha" type="submit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" value="Recuperar senha" >
+                            <input type="submit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" value="Redefinir senha" >
                         </div>
-
-                    <div class="mt-3 d-flex justify-content-between align-items-center">
-                        <a  href="<?php echo site_url('login') ?>" class="auth-link text-black">Lembrei minha senha</a>
-                        </div>
-
-
 
 
                     <?php form_close(); ?>
@@ -108,16 +127,6 @@
 
 <?php echo $this->section('scripts')?>
 
-<script>
-
-    $("form").submit(function (){
-        $(this).find(":submit").attr('disabled', 'disabled');
-
-        $("#btn-reset-senha").val("Enviando e-mail de recuperação...");
-    });
-
-
-</script>
 
 
 <?php echo $this->endSection()?>

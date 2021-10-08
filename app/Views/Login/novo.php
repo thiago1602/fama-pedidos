@@ -86,7 +86,7 @@
                         </div>
 
                     <div class="mt-3 d-flex justify-content-between align-items-center">
-                        <a href="<?php site_url('password/esqueci') ?>" class="auth-link text-black">Esqueci minha senha</a>
+                        <a href="<?php echo site_url('password/esqueci') ?>" class="auth-link text-black">Esqueci minha senha</a>
                         </div>
 
                         <div class="text-center mt-4 font-weight-light">
