@@ -104,9 +104,11 @@ class UsuarioModel extends Model
     /*
      * @use Classe Autenticacao
      */
-    public function BuscaUsuarioPorEmail(string $email){
+    public function BuscaUsuarioPorEmail(string $email)
+    {
         return $this->where('email', $email)->first();
 
+    }
 
     public function buscaUsuarioPraResetarSenha(string $token)
     {
@@ -126,8 +128,6 @@ class UsuarioModel extends Model
 
             return $usuario;
         }
-
-    }
 
     }
 }

@@ -171,9 +171,22 @@
         <nav class="sidebar sidebar-offcanvas" id="sidebar">
             <ul class="nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="index.html">
+                    <a class="nav-link" href="<?php echo site_url('admin/home'); ?>">
                         <i class="mdi mdi-home menu-icon"></i>
-                        <span class="menu-title">Dashboard</span>
+                        <span class="menu-title">Home</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?php echo site_url('admin/categorias'); ?>">
+                        <i class="mdi mdi-box-shadow menu-icon"></i>
+                        <span class="menu-title">Categorias</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+
+                    <a class="nav-link" href="<?php echo site_url('admin/usuarios'); ?>">
+                        <i class="mdi mdi-account-plus menu-icon"></i>
+                        <span class="menu-title">Usuários</span>
                     </a>
                 </li>
                 <li class="nav-item">
