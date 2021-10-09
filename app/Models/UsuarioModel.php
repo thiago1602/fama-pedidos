@@ -81,7 +81,8 @@ class UsuarioModel extends Model
 
         return $this->select('id, nome')
                     ->like('nome', $term)
-                ->get()
+            ->withDeleted(true)
+            ->get()
                 ->getResult();
     }
 
