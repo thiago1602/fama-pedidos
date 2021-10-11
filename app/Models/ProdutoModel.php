@@ -4,12 +4,19 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class CategoriaModel extends Model
+class ProdutoModel extends Model
 {
-    protected $table                = 'categorias';
-    protected $returnType           = 'App\Entities\Categoria';
+    protected $table                = 'produtos';
+    protected $returnType           = 'App\Entities\Produto';
     protected $useSoftDeletes       = true;
-    protected $allowedFields        = ['nome', 'ativo', 'slug'];
+    protected $allowedFields        = [
+        'categoria_id',
+        'nome',
+        'slug',
+        'ativo',
+        'imagem',
+
+    ];
 
     // Dates
     protected $useTimestamps        = true;
@@ -18,16 +25,23 @@ class CategoriaModel extends Model
     protected $updatedField         = 'atualizado_em';
     protected $deletedField         = 'deletado_em';
 
+
     // Validation
     protected $validationRules    = [
-        'nome'     => 'required|min_length[2]|max_length[120]|is_unique[categorias.nome]',
+        'nome'     => 'required|min_length[2]|max_length[120]|is_unique[produtos.nome]',
+        'categoria_id'     => 'required|integer',
 
     ];
 
     protected $validationMessages = [
         'nome'        => [
             'required' => 'O campo nome é obrigatório.',
-            'is_unique' => 'Essa categoria ja existe',
+            'is_unique' => 'Essa produto ja existe',
+
+        ],
+        'categoria_id'        => [
+            'required' => 'O campo Categoria é obrigatório.',
+
 
         ],
 
@@ -75,5 +89,6 @@ class CategoriaModel extends Model
             ->set('deletado_em', null)
             ->update();
     }
+
 
 }

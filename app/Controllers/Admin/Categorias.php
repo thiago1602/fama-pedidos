@@ -116,7 +116,7 @@ class Categorias extends BaseController
 
         if ($categoria->deletado_em != null){
 
-            return redirect()->back()->with('info', "A categoria $categoria->nome encontra-se excluido. Não é possivel editar-lo");
+            return redirect()->back()->with('info', "A categoria $categoria->nome encontra-se excluido. Não é possivel editar-la");
 
         }
 
@@ -142,11 +142,7 @@ class Categorias extends BaseController
 
             }
 
-
-            $post = $this->request->getPost();
-
-
-        $categoria->fill($post);
+        $categoria->fill($this->request->getPost());
 
 
         if (!$categoria->hasChanged()) {
@@ -155,7 +151,7 @@ class Categorias extends BaseController
         }
 
 
-        if ($this->categoriaModel->protect(false)->save($categoria)) {
+        if ($this->categoriaModel->save($categoria)) {
 
             return redirect()->to(site_url("admin/categorias/show/$categoria->id"))
                 ->with('sucesso', "Categoria $categoria->nome atualizado com sucesso.");
@@ -186,13 +182,8 @@ class Categorias extends BaseController
 
         if ($categoria->deletado_em != null){
 
-            return redirect()->back()->with('info', "O usuário $categoria->nome já encontra-se excluido.");
+            return redirect()->back()->with('info', "A categoria $categoria->nome já encontra-se excluido.");
 
-        }
-
-
-        if ($categoria->is_admin){
-            return redirect()->back()->with('info', 'Não épossivel excluir a categoria <b>Administrador</b>');
         }
 
         if($this->request->getMethod() === 'post' ){

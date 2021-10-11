@@ -24,66 +24,70 @@
 
                 <p class="card-text">
                     <span class="font-weight-bold">Nome:</span>
-                    <?php echo esc($categoria->nome);?>
+                    <?php echo esc($produto->nome);?>
                 </p>
                 <p class="card-text">
                     <span class="font-weight-bold">Slug:</span>
-                    <?php echo esc($categoria->slug);?>
+                    <?php echo esc($produto->slug);?>
+                </p>
+                <p class="card-text">
+                    <span class="font-weight-bold">Categoria:</span>
+                    <?php echo esc($produto->categoria);?>
                 </p>
 
 
                 <p class="card-text">
                     <span class="font-weight-bold">Ativo:</span>
-                    <?php echo ($categoria->ativo ? 'Sim' : 'Nao');?>
+                    <?php echo ($produto->ativo ? 'Sim' : 'Nao');?>
                 </p>
 
                 <p class="card-text">
                     <span class="font-weight-bold">Criado:</span>
-                    <?php echo $categoria->criado_em->humanize();?>
+                    <?php echo $produto->criado_em->humanize();?>
                 </p>
 
-                <?php if ($categoria->deletado_em == null): ?>
+                <?php if ($produto->deletado_em == null): ?>
 
                 <p class="card-text">
                     <span class="font-weight-bold">Atualizado:</span>
-                    <?php echo $categoria->atualizado_em->humanize();?>
+                    <?php echo $produto->atualizado_em->humanize();?>
                 </p>
 
                 <?php else: ?>
 
                     <p class="card-text">
                         <span class="font-weight-bold text-danger">Excluido:</span>
-                        <?php echo $categoria->deletado_em->humanize();?>
+                        <?php echo $produto->deletado_em->humanize();?>
                     </p>
 
                 <?php endif; ?>
 
                 <div class="mt-4">
 
-                    <?php if ($categoria->deletado_em == null): ?>
+                    <?php if ($produto->deletado_em == null): ?>
 
-                        <a href="<?php echo site_url("admin/categorias/editar/$categoria->id");?>" class="btn btn-dark btn-sm mr-2">
+                        <a href="<?php echo site_url("admin/produtos/editar/$produto->id");?>" class="btn btn-dark btn-sm mr-2">
                             <i class="mdi mdi-border-color btn-icon-prepend"></i>
                             Editar
                         </a>
-                        <a href="<?php echo site_url("admin/categorias/excluir/$categoria->id");?>" class="btn btn-danger btn-sm ">
+                        <a href="<?php echo site_url("admin/produtos/excluir/$produto->id");?>" class="btn btn-danger btn-sm ">
                             <i class="mdi mdi-delete-forever btn-icon-prepend"></i>
                             Excluir
                         </a>
 
-                        <a href="<?php echo site_url("admin/categorias");?>" class="btn btn-light text-dark btn-sm mr-2 ">
+                        <a href="<?php echo site_url("admin/produtos");?>" class="btn btn-light text-dark btn-sm mr-2 ">
                             <i class="mdi mdi-arrow-left-bold-circle-outline btn-icon-prepend"></i>
                             Voltar
                         </a>
 
                     <?php else: ?>
 
-                        <a href="<?php echo site_url("admin/categorias/desfaserexclusao/$usuario->id");?>" class="btn btn-dark btn-sm">
+                        <a href="<?php echo site_url("admin/produtos/desfaserexclusao/$produto->id");?>" class="btn btn-dark btn-sm">
                             <i class="mdi mdi-undo btn-icon-prepend"></i>
                             Desfazer
                         </a>
 
-                        <a href="<?php echo site_url("admin/categorias");?>" class="btn btn-light text-dark btn-sm mr-2 ">
+                        <a href="<?php echo site_url("admin/produtos");?>" class="btn btn-light text-dark btn-sm mr-2 ">
                             <i class="mdi mdi-arrow-left-bold-circle-outline btn-icon-prepend"></i>
                             Voltar
                         </a>
