@@ -165,6 +165,20 @@ class Produtos extends BaseController
         }
     }
 
+    public function editarImagem($id = null)
+    {
+        $produto = $this->buscaProdutoOu404($id);
+
+        $data = [
+            'titulo'=>"Editando a imagem do produto $produto->nome",
+            'produto' => $produto,
+
+        ];
+
+        return view('Admin/Produtos/editar_imagem', $data);
+
+    }
+
     private function buscaProdutoOu404(int $id = null){
         if (!$id || !$produto = $this->produtoModel->select('produtos.*, categorias.nome AS categoria')
                 ->join('categorias', 'categorias.id =  produtos.categoria_id')

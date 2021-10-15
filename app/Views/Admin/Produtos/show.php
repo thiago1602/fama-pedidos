@@ -22,23 +22,31 @@
             </div>
             <div class="card-body">
 
-                <?php if ($produto->imagem): ?>
-
-                    <img class="card-img-top" src="..." alt="Card image cap">
+                <div class="text-center">
 
 
-                <?php else: ?>
+                    <?php if ($produto->imagem): ?>
 
-                    <img class="card-img-top " src="<?php echo site_url('admin/images/cilindro-de-aco-glp-20kg-vazio.jpg');?>" alt="Produto GLP 20kg">
+                        <img class="card-img-top w-75" src="..." alt="Card image cap">
+
+
+                    <?php else: ?>
+
+                        <img class="card-img-top w-75 " src="<?php echo site_url('admin/images/cilindro-de-aco-glp-20kg-vazio.jpg');?>" alt="Produto GLP 20kg">
 
 
 
-                <?php endif; ?>
+                    <?php endif; ?>
 
-                <a href="<?php echo site_url("admin/produtos/editarimagem/$produto->id");?>" class="btn btn-outline-primary mb-3 btn-sm">
+                </div>
+
+
+                <a href="<?php echo site_url("admin/produtos/editarimagem/$produto->id");?>" class="btn btn-outline-primary mb-2 btn-sm">
                     <i class="mdi mdi-image btn-icon-prepend"></i>
                     Editar
                 </a>
+
+                <hr>
 
                 <p class="card-text">
                     <span class="font-weight-bold">Nome:</span>
