@@ -48,12 +48,12 @@
 
 
 
-<?php echo form_open("admin/categorias/cadastrar"); ?>
+<?php echo form_open("admin/produtos/cadastrar"); ?>
 
-        <?php echo  $this->include('Admin/Categorias/form'); ?>
+        <?php echo  $this->include('Admin/Produtos/form'); ?>
 
 
-                <a href="<?php echo site_url("admin/categorias");?>" class="btn btn-light text-dark btn-sm mr-2 ">
+                <a href="<?php echo site_url("admin/produtos");?>" class="btn btn-light text-dark btn-sm mr-2 ">
                     <i class="mdi mdi-arrow-left-bold-circle-outline btn-icon-prepend"></i>
                     Voltar
                 </a>

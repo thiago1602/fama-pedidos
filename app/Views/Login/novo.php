@@ -104,8 +104,6 @@
                             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
                         })();
                     </script>
-
-
                     <?php form_close(); ?>
                 </div>
             </div>
@@ -116,8 +114,6 @@
 <!-- page-body-wrapper ends -->
 
 <?php echo $this->endSection()?>
-
-
 
 
 

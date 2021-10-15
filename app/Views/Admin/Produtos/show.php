@@ -11,7 +11,7 @@
 
 
 <div class="row">
-    <div class="col-lg-6 grid-margin stretch-card">
+    <div class="col-lg-4 grid-margin stretch-card">
         <div class="card">
             <div class="card-header bg-primary pb-0 pt-4">
 
@@ -21,6 +21,24 @@
 
             </div>
             <div class="card-body">
+
+                <?php if ($produto->imagem): ?>
+
+                    <img class="card-img-top" src="..." alt="Card image cap">
+
+
+                <?php else: ?>
+
+                    <img class="card-img-top " src="<?php echo site_url('admin/images/cilindro-de-aco-glp-20kg-vazio.jpg');?>" alt="Produto GLP 20kg">
+
+
+
+                <?php endif; ?>
+
+                <a href="<?php echo site_url("admin/produtos/editarimagem/$produto->id");?>" class="btn btn-outline-primary mb-3 btn-sm">
+                    <i class="mdi mdi-image btn-icon-prepend"></i>
+                    Editar
+                </a>
 
                 <p class="card-text">
                     <span class="font-weight-bold">Nome:</span>
