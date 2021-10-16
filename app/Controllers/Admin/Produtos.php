@@ -179,6 +179,98 @@ class Produtos extends BaseController
 
     }
 
+    public function upload($id = null)
+    {
+        $produto = $this->buscaProdutoOu404($id);
+
+        $imagem = $this->request->getFile('foto_produto');
+
+        if (!$imagem->isValid())
+        {
+            $erro = $imagem->getError();
+
+            if ($erro == UPLOAD_ERR_NO_FILE)
+            {
+                return redirect()->back()->with('atencao', 'Nenhum arquivo foi selecionado');
+            }
+        }
+
+        $tamanho = $imagem->getSizeByUnit('mb');
+
+        if ($tamanho > 2)
+        {
+            return redirect()->back()->with('atencao', 'O arquivo selecionado é muito grande. Máximo permitido é 2MB');
+
+        }
+
+        $tipoImagem = $imagem->getMimeType();
+
+        $tipoImagemLimpo = explode('/', $tipoImagem);
+        
+        $tiposPermitidos = [
+            'jpeg', 'png', 'webp',
+        ];
+
+        if (!in_array($tipoImagemLimpo[1], $tiposPermitidos))
+        {
+
+            return redirect()->back()->with('atencao', 'O arquivo não tem o formato permitido. Apenas: '. implode(',', $tiposPermitidos));
+
+
+        }
+
+        list($largura, $altura) = getimagesize($imagem->getPathname());
+
+        if ($largura < "400" || $altura < "400")
+        {
+            return redirect()->back()->with('atencao', 'A imagem não pode ser menor do que 400 x 400 pixels');
+
+        }
+        /*
+         * store da imagem
+         */
+
+        $imagemCaminho = $imagem->store('produtos');
+
+
+        $imagemCaminho = WRITEPATH . 'uploads/'. $imagemCaminho;
+
+
+
+        service('image')
+            ->withFile($imagemCaminho)
+            ->fit(400, 400, 'center')
+            ->save($imagemCaminho);
+
+
+        /*
+         * Recuperando a imagem antiga para exclui-la
+         */
+
+        $imagemAntiga = $produto->imagem;
+
+        /*
+         * Atualizando a imagem do produto
+         */
+
+        $produto->imagem = $imagem->getName();
+
+
+        $this->produtoModel->save($produto);
+
+        /*Caminho da imagem antiga */
+
+        $caminhoImagem = WRITEPATH.'uploads/produtos/'.$imagemAntiga;
+
+        if (is_file($caminhoImagem))
+        {
+
+            unlink($caminhoImagem);
+        }
+
+        return redirect()->to(site_url("admin/produtos/show/$produto->id"))->with('sucesso', 'Imagem alterada com sucesso');
+    }
+
     private function buscaProdutoOu404(int $id = null){
         if (!$id || !$produto = $this->produtoModel->select('produtos.*, categorias.nome AS categoria')
                 ->join('categorias', 'categorias.id =  produtos.categoria_id')
