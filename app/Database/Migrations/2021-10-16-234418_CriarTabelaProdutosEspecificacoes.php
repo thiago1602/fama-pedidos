@@ -1,0 +1,46 @@
+<?php
+
+namespace App\Database\Migrations;
+
+use CodeIgniter\Database\Migration;
+
+class CriarTabelaProdutosEspecificacoes extends Migration
+{
+    public function up()
+    {
+        $this->forge->addField([
+            'id'=>[
+                'type' => 'INT',
+                'constraint'=>5,
+                'unsigned' => true,
+                'auto_increment' => true,
+            ] ,
+            'produto_id'=>[
+                'type'=>'INT',
+                'constraint'=>5,
+                'unsigned' => true,
+
+            ],
+            'preco'=>[
+                'type'=>'DECIMAL',
+                'constraint'=>'10',
+            ],
+            'customizavel'=>[
+                'type'=>'BOOLEAN',
+                'null'=>false,
+                'true'=>true,
+            ],
+
+        ]);
+
+        $this->forge->addPrimaryKey('id')->addUniqueKey('nome');
+        $this->forge->addForeignKey('produto_id', 'produtos', 'id', 'CASCADE', 'CASCADE');
+
+        $this->forge->createTable('produtos_especificacoes');
+    }
+
+    public function down()
+    {
+        $this->forge->dropTable('produtos_especificacoes');
+    }
+}

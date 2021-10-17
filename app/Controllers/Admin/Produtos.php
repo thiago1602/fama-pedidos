@@ -5,6 +5,7 @@ namespace App\Controllers\Admin;
 use App\Controllers\BaseController;
 use App\Entities\Produto;
 use App\Models\CategoriaModel;
+use App\Models\ProdutoEspecificacaoModel;
 use App\Models\ProdutoModel;
 use CodeIgniter\Entity\Entity;
 
@@ -13,11 +14,13 @@ class Produtos extends BaseController
 
     private $produtoModel;
     private $categoriaModel;
+    private $produtoEspecificacaoModel;
 
     public function __construct ()
     {
         $this->produtoModel = new ProdutoModel();
         $this->categoriaModel = new CategoriaModel();
+        $this->produtoEspecificacaoModel = new ProdutoEspecificacaoModel();
     }
     public function index()
     {
@@ -270,6 +273,45 @@ class Produtos extends BaseController
 
         return redirect()->to(site_url("admin/produtos/show/$produto->id"))->with('sucesso', 'Imagem alterada com sucesso');
     }
+
+    public function imagem(string  $imagem = null)
+    {
+        if ($imagem)
+        {
+  $caminhoImagem = WRITEPATH . 'uploads/produtos/'. $imagem;
+
+  $infoImagem = new \finfo(FILEINFO_MIME);
+
+
+  $tipoImagem = $infoImagem->file($caminhoImagem);
+
+header("Content-Type: $tipoImagem");
+
+header("Content-Lenght: " . filesize($caminhoImagem));
+
+readfile($caminhoImagem);
+
+exit;
+
+        }
+    }
+
+    public function especificacoes($id = null)
+    {
+
+        $produto = $this->buscaProdutoOu404($id);
+
+
+        $data =[
+            'titulo'=>"Gerenciar as especificações do produto $produto->nome",
+            'produto'=>$produto,
+            'produtoEspecificacoes' => $this->produtoEspecificacaoModel->buscaEspecificacoesDoProduto($produto->id,10),
+            'pager'=>$this->produtoEspecificacaoModel->pager,
+        ];
+
+        return view('Admin/Produtos/especificacoes', $data);
+    }
+    
 
     private function buscaProdutoOu404(int $id = null){
         if (!$id || !$produto = $this->produtoModel->select('produtos.*, categorias.nome AS categoria')
