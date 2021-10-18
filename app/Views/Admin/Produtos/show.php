@@ -11,7 +11,7 @@
 
 
 <div class="row">
-    <div class="col-lg-4 grid-margin stretch-card">
+    <div class="col-lg-6 grid-margin stretch-card">
         <div class="card">
             <div class="card-header bg-primary pb-0 pt-4">
 
@@ -97,6 +97,10 @@
                         <a href="<?php echo site_url("admin/produtos/editar/$produto->id");?>" class="btn btn-dark btn-sm mr-2">
                             <i class="mdi mdi-border-color btn-icon-prepend"></i>
                             Editar
+                        </a>
+                        <a href="<?php echo site_url("admin/produtos/especificacoes/$produto->id");?>" class="btn btn-outline-warning btn-sm mr-2">
+                            <i class="mdi mdi-border-color btn-icon-prepend"></i>
+                            Especificações
                         </a>
                         <a href="<?php echo site_url("admin/produtos/excluir/$produto->id");?>" class="btn btn-danger btn-sm ">
                             <i class="mdi mdi-delete-forever btn-icon-prepend"></i>
