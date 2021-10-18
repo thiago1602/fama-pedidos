@@ -118,7 +118,7 @@
                     <div class="item">
                         <div class="carousel-caption">
                             <div class="fadeUp item_img">
-                                <img src="src/assets/img/photos/tortilla.png" alt="sample" />
+                                <img src="<?php echo site_url('web/');?>src/assets/img/photos/tortilla.png" alt="sample" />
                                 <div class="item_badge">
                                     <span class="badge_btext">20%</span>
                                     <span class="badge_stext">OFF</span>
@@ -137,7 +137,7 @@
                     <div class="item">
                         <div class="carousel-caption">
                             <div class="fadeUp item_img">
-                                <img src="src/assets/img/photos/burger.png" alt="sample" />
+                                <img src="<?php echo site_url('web/');?>src/assets/img/photos/burger.png" alt="sample" />
                                 <div class="item_badge">
                                     <span class="badge_btext">20%</span>
                                     <span class="badge_stext">OFF</span>
@@ -156,7 +156,7 @@
                     <div class="item">
                         <div class="carousel-caption">
                             <div class="fadeUp item_img">
-                                <img src="src/assets/img/photos/pizza.png" alt="sample" />
+                                <img src="<?php echo site_url('web/');?>src/assets/img/photos/pizza.png" alt="sample" />
                                 <div class="item_badge">
                                     <span class="badge_btext">20%</span>
                                     <span class="badge_stext">OFF</span>
@@ -175,7 +175,7 @@
                     <div class="item">
                         <div class="carousel-caption">
                             <div class="fadeUp item_img">
-                                <img src="src/assets/img/photos/burger.png" alt="sample" />
+                                <img src="<?php echo site_url('web/');?>src/assets/img/photos/burger.png" alt="sample" />
                                 <div class="item_badge">
                                     <span class="badge_btext">20%</span>
                                     <span class="badge_stext">OFF</span>
@@ -227,7 +227,7 @@
                             <!-- Brand and toggle get grouped for better mobile display -->
                             <div class="navbar-header">
                                 <a class="navbar-brand" href="#">
-                                    <img src="src/assets/img/logo.png" alt="logo" />
+                                    <img src="<?php echo site_url('web/');?>src/assets/img/logo.png" alt="logo" />
                                 </a>
                                 <a href="#cd-nav" class="cd-nav-trigger right_menu_icon">
                                     <span><i class="fa fa-bars" aria-hidden="true"></i></span>
@@ -274,7 +274,7 @@
             </div>
             <div class="col-sm-6 img text-center padd_lr0" data-aos="fade-down">
                 <div class="border_on">
-                    <img src="src/assets/img/photos/about-us.jpg" alt="sample" class="about_img" />
+                    <img src="<?php echo site_url('web/');?>src/assets/img/photos/about-us.jpg" alt="sample" class="about_img" />
                 </div>
             </div>
         </div>
@@ -313,11 +313,11 @@
             <div class="filtr-item image filter burger active">
                 <div class="row">
                     <div class="col-sm-6">
-                        <a href="src/assets/img/photos/food-1.jpg" class="block fancybox" data-fancybox-group="fancybox">
+                        <a href="<?php echo site_url('web/');?>src/assets/img/photos/food-1.jpg" class="block fancybox" data-fancybox-group="fancybox">
                             <div class="content">
                                 <div class="filter_item_img">
                                     <i class="fa fa-search-plus"></i>
-                                    <img src="src/assets/img/photos/food-1.jpg" alt="sample" />
+                                    <img src="<?php echo site_url('web/');?>src/assets/img/photos/food-1.jpg" alt="sample" />
                                 </div>
                                 <div class="info">
                                     <div class="name">Margherita</div>
@@ -328,11 +328,11 @@
                         </a>
                     </div>
                     <div class="col-sm-6">
-                        <a href="src/assets/img/photos/food-2.jpg" class="block fancybox" data-fancybox-group="fancybox">
+                        <a href="<?php echo site_url('web/');?>src/assets/img/photos/food-2.jpg" class="block fancybox" data-fancybox-group="fancybox">
                             <div class="content">
                                 <div class="filter_item_img">
                                     <i class="fa fa-search-plus"></i>
-                                    <img src="src/assets/img/photos/food-2.jpg" alt="sample" />
+                                    <img src="<?php echo site_url('web/');?>src/assets/img/photos/food-2.jpg" alt="sample" />
                                 </div>
                                 <div class="info">
                                     <div class="name">Greece</div>
@@ -343,11 +343,11 @@
                         </a>
                     </div>
                     <div class="col-sm-6">
-                        <a href="src/assets/img/photos/food-3.jpg" class="block fancybox" data-fancybox-group="fancybox">
+                        <a href="<?php echo site_url('web/');?>src/assets/img/photos/food-3.jpg" class="block fancybox" data-fancybox-group="fancybox">
                             <div class="content">
                                 <div class="filter_item_img">
                                     <i class="fa fa-search-plus"></i>
-                                    <img src="src/assets/img/photos/food-3.jpg" alt="sample" />
+                                    <img src="<?php echo site_url('web/');?>src/assets/img/photos/food-3.jpg" alt="sample" />
                                 </div>
                                 <div class="info">
                                     <div class="name">Pepperoni</div>
@@ -358,11 +358,11 @@
                         </a>
                     </div>
                     <div class="col-sm-6">
-                        <a href="src/assets/img/photos/food-4.jpg" class="block fancybox" data-fancybox-group="fancybox">
+                        <a href="<?php echo site_url('web/');?>src/assets/img/photos/food-4.jpg" class="block fancybox" data-fancybox-group="fancybox">
                             <div class="content">
                                 <div class="filter_item_img">
                                     <i class="fa fa-search-plus"></i>
-                                    <img src="src/assets/img/photos/food-4.jpg" alt="sample" />
+                                    <img src="<?php echo site_url('web/');?>src/assets/img/photos/food-4.jpg" alt="sample" />
                                 </div>
                                 <div class="info">
                                     <div class="name">Chicken lovers</div>
@@ -373,11 +373,11 @@
                         </a>
                     </div>
                     <div class="col-sm-6">
-                        <a href="src/assets/img/photos/food-5.jpg" class="block fancybox" data-fancybox-group="fancybox">
+                        <a href="<?php echo site_url('web/');?>src/assets/img/photos/food-5.jpg" class="block fancybox" data-fancybox-group="fancybox">
                             <div class="content">
                                 <div class="filter_item_img">
                                     <i class="fa fa-search-plus"></i>
-                                    <img src="src/assets/img/photos/food-5.jpg" alt="sample" />
+                                    <img src="<?php echo site_url('web/');?>src/assets/img/photos/food-5.jpg" alt="sample" />
                                 </div>
                                 <div class="info">
                                     <div class="name">Italiano</div>
@@ -388,11 +388,11 @@
                         </a>
                     </div>
                     <div class="col-sm-6">
-                        <a href="src/assets/img/photos/food-6.jpg" class="block fancybox" data-fancybox-group="fancybox">
+                        <a href="<?php echo site_url('web/');?>src/assets/img/photos/food-6.jpg" class="block fancybox" data-fancybox-group="fancybox">
                             <div class="content">
                                 <div class="filter_item_img">
                                     <i class="fa fa-search-plus"></i>
-                                    <img src="src/assets/img/photos/food-6.jpg" alt="sample" />
+                                    <img src="<?php echo site_url('web/');?>src/assets/img/photos/food-6.jpg" alt="sample" />
                                 </div>
                                 <div class="info">
                                     <div class="name">Pepper beef</div>
@@ -403,11 +403,11 @@
                         </a>
                     </div>
                     <div class="col-sm-6">
-                        <a href="src/assets/img/photos/food-7.jpg" class="block fancybox" data-fancybox-group="fancybox">
+                        <a href="<?php echo site_url('web/');?>src/assets/img/photos/food-7.jpg" class="block fancybox" data-fancybox-group="fancybox">
                             <div class="content">
                                 <div class="filter_item_img">
                                     <i class="fa fa-search-plus"></i>
-                                    <img src="src/assets/img/photos/food-7.jpg" alt="sample" />
+                                    <img src="<?php echo site_url('web/');?>src/assets/img/photos/food-7.jpg" alt="sample" />
                                 </div>
                                 <div class="info">
                                     <div class="name">Hawai</div>
@@ -418,11 +418,11 @@
                         </a>
                     </div>
                     <div class="col-sm-6">
-                        <a href="src/assets/img/photos/food-8.jpg" class="block fancybox" data-fancybox-group="fancybox">
+                        <a href="<?php echo site_url('web/');?>src/assets/img/photos/food-8.jpg" class="block fancybox" data-fancybox-group="fancybox">
                             <div class="content">
                                 <div class="filter_item_img">
                                     <i class="fa fa-search-plus"></i>
-                                    <img src="src/assets/img/photos/food-8.jpg" alt="sample" />
+                                    <img src="<?php echo site_url('web/');?>src/assets/img/photos/food-8.jpg" alt="sample" />
                                 </div>
                                 <div class="info">
                                     <div class="name">Caesar</div>
@@ -437,11 +437,11 @@
             <div class="filtr-item image filter pizza">
                 <div class="row">
                     <div class="col-sm-6">
-                        <a href="src/assets/img/photos/food-6.jpg" class="block fancybox" data-fancybox-group="fancybox">
+                        <a href="<?php echo site_url('web/');?>src/assets/img/photos/food-6.jpg" class="block fancybox" data-fancybox-group="fancybox">
                             <div class="content">
                                 <div class="filter_item_img">
                                     <i class="fa fa-search-plus"></i>
-                                    <img src="src/assets/img/photos/food-6.jpg" alt="sample" />
+                                    <img src="<?php echo site_url('web/');?>src/assets/img/photos/food-6.jpg" alt="sample" />
                                 </div>
                                 <div class="info">
                                     <div class="name">Pepper beef</div>
@@ -452,11 +452,11 @@
                         </a>
                     </div>
                     <div class="col-sm-6">
-                        <a href="src/assets/img/photos/food-8.jpg" class="block fancybox" data-fancybox-group="fancybox">
+                        <a href="<?php echo site_url('web/');?>src/assets/img/photos/food-8.jpg" class="block fancybox" data-fancybox-group="fancybox">
                             <div class="content">
                                 <div class="filter_item_img">
                                     <i class="fa fa-search-plus"></i>
-                                    <img src="src/assets/img/photos/food-8.jpg" alt="sample" />
+                                    <img src="<?php echo site_url('web/');?>src/assets/img/photos/food-8.jpg" alt="sample" />
                                 </div>
                                 <div class="info">
                                     <div class="name">Caesar</div>
@@ -467,11 +467,11 @@
                         </a>
                     </div>
                     <div class="col-sm-6">
-                        <a href="src/assets/img/photos/food-7.jpg" class="block fancybox" data-fancybox-group="fancybox">
+                        <a href="<?php echo site_url('web/');?>src/assets/img/photos/food-7.jpg" class="block fancybox" data-fancybox-group="fancybox">
                             <div class="content">
                                 <div class="filter_item_img">
                                     <i class="fa fa-search-plus"></i>
-                                    <img src="src/assets/img/photos/food-7.jpg" alt="sample" />
+                                    <img src="<?php echo site_url('web/');?>src/assets/img/photos/food-7.jpg" alt="sample" />
                                 </div>
                                 <div class="info">
                                     <div class="name">Hawai</div>
@@ -482,11 +482,11 @@
                         </a>
                     </div>
                     <div class="col-sm-6">
-                        <a href="src/assets/img/photos/food-5.jpg" class="block fancybox" data-fancybox-group="fancybox">
+                        <a href="<?php echo site_url('web/');?>src/assets/img/photos/food-5.jpg" class="block fancybox" data-fancybox-group="fancybox">
                             <div class="content">
                                 <div class="filter_item_img">
                                     <i class="fa fa-search-plus"></i>
-                                    <img src="src/assets/img/photos/food-5.jpg" alt="sample" />
+                                    <img src="<?php echo site_url('web/');?>src/assets/img/photos/food-5.jpg" alt="sample" />
                                 </div>
                                 <div class="info">
                                     <div class="name">Italiano</div>
@@ -501,11 +501,11 @@
             <div class="filtr-item image filter salad">
                 <div class="row">
                     <div class="col-sm-6">
-                        <a href="src/assets/img/photos/food-3.jpg" class="block fancybox" data-fancybox-group="fancybox">
+                        <a href="<?php echo site_url('web/');?>src/assets/img/photos/food-3.jpg" class="block fancybox" data-fancybox-group="fancybox">
                             <div class="content">
                                 <div class="filter_item_img">
                                     <i class="fa fa-search-plus"></i>
-                                    <img src="src/assets/img/photos/food-3.jpg" alt="sample" />
+                                    <img src="<?php echo site_url('web/');?>src/assets/img/photos/food-3.jpg" alt="sample" />
                                 </div>
                                 <div class="info">
                                     <div class="name">Pepperoni</div>
@@ -516,11 +516,11 @@
                         </a>
                     </div>
                     <div class="col-sm-6">
-                        <a href="src/assets/img/photos/food-2.jpg" class="block fancybox" data-fancybox-group="fancybox">
+                        <a href="<?php echo site_url('web/');?>src/assets/img/photos/food-2.jpg" class="block fancybox" data-fancybox-group="fancybox">
                             <div class="content">
                                 <div class="filter_item_img">
                                     <i class="fa fa-search-plus"></i>
-                                    <img src="src/assets/img/photos/food-2.jpg" alt="sample" />
+                                    <img src="<?php echo site_url('web/');?>src/assets/img/photos/food-2.jpg" alt="sample" />
                                 </div>
                                 <div class="info">
                                     <div class="name">Greece</div>
@@ -531,11 +531,11 @@
                         </a>
                     </div>
                     <div class="col-sm-6">
-                        <a href="src/assets/img/photos/food-4.jpg" class="block fancybox" data-fancybox-group="fancybox">
+                        <a href="<?php echo site_url('web/');?>src/assets/img/photos/food-4.jpg" class="block fancybox" data-fancybox-group="fancybox">
                             <div class="content">
                                 <div class="filter_item_img">
                                     <i class="fa fa-search-plus"></i>
-                                    <img src="src/assets/img/photos/food-4.jpg" alt="sample" />
+                                    <img src="<?php echo site_url('web/');?>src/assets/img/photos/food-4.jpg" alt="sample" />
                                 </div>
                                 <div class="info">
                                     <div class="name">Chicken lovers</div>
@@ -546,11 +546,11 @@
                         </a>
                     </div>
                     <div class="col-sm-6">
-                        <a href="src/assets/img/photos/food-1.jpg" class="block fancybox" data-fancybox-group="fancybox">
+                        <a href="<?php echo site_url('web/');?>src/assets/img/photos/food-1.jpg" class="block fancybox" data-fancybox-group="fancybox">
                             <div class="content">
                                 <div class="filter_item_img">
                                     <i class="fa fa-search-plus"></i>
-                                    <img src="src/assets/img/photos/food-1.jpg" alt="sample" />
+                                    <img src="<?php echo site_url('web/');?>src/assets/img/photos/food-1.jpg" alt="sample" />
                                 </div>
                                 <div class="info">
                                     <div class="name">Margherita</div>
@@ -565,11 +565,11 @@
             <div class="filtr-item image filter frices">
                 <div class="row">
                     <div class="col-sm-6">
-                        <a href="src/assets/img/photos/food-8.jpg" class="block fancybox" data-fancybox-group="fancybox">
+                        <a href="<?php echo site_url('web/');?>src/assets/img/photos/food-8.jpg" class="block fancybox" data-fancybox-group="fancybox">
                             <div class="content">
                                 <div class="filter_item_img">
                                     <i class="fa fa-search-plus"></i>
-                                    <img src="src/assets/img/photos/food-8.jpg" alt="sample" />
+                                    <img src="<?php echo site_url('web/');?>src/assets/img/photos/food-8.jpg" alt="sample" />
                                 </div>
                                 <div class="info">
                                     <div class="name">Caesar</div>
@@ -580,11 +580,11 @@
                         </a>
                     </div>
                     <div class="col-sm-6">
-                        <a href="src/assets/img/photos/food-7.jpg" class="block fancybox" data-fancybox-group="fancybox">
+                        <a href="<?php echo site_url('web/');?>src/assets/img/photos/food-7.jpg" class="block fancybox" data-fancybox-group="fancybox">
                             <div class="content">
                                 <div class="filter_item_img">
                                     <i class="fa fa-search-plus"></i>
-                                    <img src="src/assets/img/photos/food-7.jpg" alt="sample" />
+                                    <img src="<?php echo site_url('web/');?>src/assets/img/photos/food-7.jpg" alt="sample" />
                                 </div>
                                 <div class="info">
                                     <div class="name">Hawai</div>
@@ -595,11 +595,11 @@
                         </a>
                     </div>
                     <div class="col-sm-6">
-                        <a href="src/assets/img/photos/food-6.jpg" class="block fancybox" data-fancybox-group="fancybox">
+                        <a href="<?php echo site_url('web/');?>src/assets/img/photos/food-6.jpg" class="block fancybox" data-fancybox-group="fancybox">
                             <div class="content">
                                 <div class="filter_item_img">
                                     <i class="fa fa-search-plus"></i>
-                                    <img src="src/assets/img/photos/food-6.jpg" alt="sample" />
+                                    <img src="<?php echo site_url('web/');?>src/assets/img/photos/food-6.jpg" alt="sample" />
                                 </div>
                                 <div class="info">
                                     <div class="name">Pepper beef</div>
@@ -610,11 +610,11 @@
                         </a>
                     </div>
                     <div class="col-sm-6">
-                        <a href="src/assets/img/photos/food-2.jpg" class="block fancybox" data-fancybox-group="fancybox">
+                        <a href="<?php echo site_url('web/');?>src/assets/img/photos/food-2.jpg" class="block fancybox" data-fancybox-group="fancybox">
                             <div class="content">
                                 <div class="filter_item_img">
                                     <i class="fa fa-search-plus"></i>
-                                    <img src="src/assets/img/photos/food-2.jpg" alt="sample" />
+                                    <img src="<?php echo site_url('web/');?>src/assets/img/photos/food-2.jpg" alt="sample" />
                                 </div>
                                 <div class="info">
                                     <div class="name">Greece</div>
@@ -629,11 +629,11 @@
             <div class="filtr-item image filter drinks">
                 <div class="row">
                     <div class="col-sm-6">
-                        <a href="src/assets/img/photos/food-1.jpg" class="block fancybox" data-fancybox-group="fancybox">
+                        <a href="<?php echo site_url('web/');?>src/assets/img/photos/food-1.jpg" class="block fancybox" data-fancybox-group="fancybox">
                             <div class="content">
                                 <div class="filter_item_img">
                                     <i class="fa fa-search-plus"></i>
-                                    <img src="src/assets/img/photos/food-1.jpg" alt="sample" />
+                                    <img src="<?php echo site_url('web/');?>src/assets/img/photos/food-1.jpg" alt="sample" />
                                 </div>
                                 <div class="info">
                                     <div class="name">Margherita</div>
@@ -644,11 +644,11 @@
                         </a>
                     </div>
                     <div class="col-sm-6">
-                        <a href="src/assets/img/photos/food-5.jpg" class="block fancybox" data-fancybox-group="fancybox">
+                        <a href="<?php echo site_url('web/');?>src/assets/img/photos/food-5.jpg" class="block fancybox" data-fancybox-group="fancybox">
                             <div class="content">
                                 <div class="filter_item_img">
                                     <i class="fa fa-search-plus"></i>
-                                    <img src="src/assets/img/photos/food-5.jpg" alt="sample" />
+                                    <img src="<?php echo site_url('web/');?>src/assets/img/photos/food-5.jpg" alt="sample" />
                                 </div>
                                 <div class="info">
                                     <div class="name">Italiano</div>
@@ -659,11 +659,11 @@
                         </a>
                     </div>
                     <div class="col-sm-6">
-                        <a href="src/assets/img/photos/food-3.jpg" class="block fancybox" data-fancybox-group="fancybox">
+                        <a href="<?php echo site_url('web/');?>src/assets/img/photos/food-3.jpg" class="block fancybox" data-fancybox-group="fancybox">
                             <div class="content">
                                 <div class="filter_item_img">
                                     <i class="fa fa-search-plus"></i>
-                                    <img src="src/assets/img/photos/food-3.jpg" alt="sample" />
+                                    <img src="<?php echo site_url('web/');?>src/assets/img/photos/food-3.jpg" alt="sample" />
                                 </div>
                                 <div class="info">
                                     <div class="name">Pepperoni</div>
@@ -674,11 +674,11 @@
                         </a>
                     </div>
                     <div class="col-sm-6">
-                        <a href="src/assets/img/photos/food-4.jpg" class="block fancybox" data-fancybox-group="fancybox">
+                        <a href="<?php echo site_url('web/');?>src/assets/img/photos/food-4.jpg" class="block fancybox" data-fancybox-group="fancybox">
                             <div class="content">
                                 <div class="filter_item_img">
                                     <i class="fa fa-search-plus"></i>
-                                    <img src="src/assets/img/photos/food-4.jpg" alt="sample" />
+                                    <img src="<?php echo site_url('web/');?>src/assets/img/photos/food-4.jpg" alt="sample" />
                                 </div>
                                 <div class="info">
                                     <div class="name">Chicken lovers</div>
@@ -769,9 +769,9 @@
         <div id="photo_gallery" class="list1">
             <div class="row loadMore">
                 <div class="col-sm-4 col-md-3 item">
-                    <a href="src/assets/img/photos/gallery-1.jpg" class="block fancybox" data-fancybox-group="fancybox">
+                    <a href="<?php echo site_url('web/');?>src/assets/img/photos/gallery-1.jpg" class="block fancybox" data-fancybox-group="fancybox">
                         <div class="content">
-                            <img src="src/assets/img/photos/gallery-1.jpg" alt="sample" />
+                            <img src="<?php echo site_url('web/');?>src/assets/img/photos/gallery-1.jpg" alt="sample" />
                             <div class="zoom">
                                 <span class="zoom_icon"><i class="fa fa-search-plus"></i></span>
                             </div>
@@ -779,9 +779,9 @@
                     </a>
                 </div>
                 <div class="col-sm-4 col-md-3 item">
-                    <a href="src/assets/img/photos/gallery-2.jpg" class="block fancybox" data-fancybox-group="fancybox">
+                    <a href="<?php echo site_url('web/');?>src/assets/img/photos/gallery-2.jpg" class="block fancybox" data-fancybox-group="fancybox">
                         <div class="content">
-                            <img src="src/assets/img/photos/gallery-2.jpg" alt="sample" />
+                            <img src="<?php echo site_url('web/');?>src/assets/img/photos/gallery-2.jpg" alt="sample" />
                             <div class="zoom">
                                 <span class="zoom_icon"><i class="fa fa-search-plus"></i></span>
                             </div>
@@ -789,9 +789,9 @@
                     </a>
                 </div>
                 <div class="col-sm-4 col-md-3 item">
-                    <a href="src/assets/img/photos/gallery-3.jpg" class="block fancybox" data-fancybox-group="fancybox">
+                    <a href="<?php echo site_url('web/');?>src/assets/img/photos/gallery-3.jpg" class="block fancybox" data-fancybox-group="fancybox">
                         <div class="content">
-                            <img src="src/assets/img/photos/gallery-3.jpg" alt="sample" />
+                            <img src="<?php echo site_url('web/');?>src/assets/img/photos/gallery-3.jpg" alt="sample" />
                             <div class="zoom">
                                 <span class="zoom_icon"><i class="fa fa-search-plus"></i></span>
                             </div>
@@ -799,9 +799,9 @@
                     </a>
                 </div>
                 <div class="col-sm-4 col-md-3 item">
-                    <a href="src/assets/img/photos/gallery-4.jpg" class="block fancybox" data-fancybox-group="fancybox">
+                    <a href="<?php echo site_url('web/');?>src/assets/img/photos/gallery-4.jpg" class="block fancybox" data-fancybox-group="fancybox">
                         <div class="content">
-                            <img src="src/assets/img/photos/gallery-4.jpg" alt="sample" />
+                            <img src="<?php echo site_url('web/');?>src/assets/img/photos/gallery-4.jpg" alt="sample" />
                             <div class="zoom">
                                 <span class="zoom_icon"><i class="fa fa-search-plus"></i></span>
                             </div>
@@ -809,9 +809,9 @@
                     </a>
                 </div>
                 <div class="col-sm-4 col-md-3 item">
-                    <a href="src/assets/img/photos/gallery-5.jpg" class="block fancybox" data-fancybox-group="fancybox">
+                    <a href="<?php echo site_url('web/');?>src/assets/img/photos/gallery-5.jpg" class="block fancybox" data-fancybox-group="fancybox">
                         <div class="content">
-                            <img src="src/assets/img/photos/gallery-5.jpg" alt="sample" />
+                            <img src="<?php echo site_url('web/');?>src/assets/img/photos/gallery-5.jpg" alt="sample" />
                             <div class="zoom">
                                 <span class="zoom_icon"><i class="fa fa-search-plus"></i></span>
                             </div>
@@ -819,9 +819,9 @@
                     </a>
                 </div>
                 <div class="col-sm-4 col-md-3 item">
-                    <a href="src/assets/img/photos/gallery-6.jpg" class="block fancybox" data-fancybox-group="fancybox">
+                    <a href="<?php echo site_url('web/');?>src/assets/img/photos/gallery-6.jpg" class="block fancybox" data-fancybox-group="fancybox">
                         <div class="content">
-                            <img src="src/assets/img/photos/gallery-6.jpg" alt="sample" />
+                            <img src="<?php echo site_url('web/');?>src/assets/img/photos/gallery-6.jpg" alt="sample" />
                             <div class="zoom">
                                 <span class="zoom_icon"><i class="fa fa-search-plus"></i></span>
                             </div>
@@ -829,9 +829,9 @@
                     </a>
                 </div>
                 <div class="col-sm-4 col-md-3 item">
-                    <a href="src/assets/img/photos/gallery-7.jpg" class="block fancybox" data-fancybox-group="fancybox">
+                    <a href="<?php echo site_url('web/');?>src/assets/img/photos/gallery-7.jpg" class="block fancybox" data-fancybox-group="fancybox">
                         <div class="content">
-                            <img src="src/assets/img/photos/gallery-7.jpg" alt="sample" />
+                            <img src="<?php echo site_url('web/');?>src/assets/img/photos/gallery-7.jpg" alt="sample" />
                             <div class="zoom">
                                 <span class="zoom_icon"><i class="fa fa-search-plus"></i></span>
                             </div>
@@ -839,9 +839,9 @@
                     </a>
                 </div>
                 <div class="col-sm-4 col-md-3 item">
-                    <a href="src/assets/img/photos/gallery-8.jpg" class="block fancybox" data-fancybox-group="fancybox">
+                    <a href="<?php echo site_url('web/');?>src/assets/img/photos/gallery-8.jpg" class="block fancybox" data-fancybox-group="fancybox">
                         <div class="content">
-                            <img src="src/assets/img/photos/gallery-8.jpg" alt="sample" />
+                            <img src="<?php echo site_url('web/');?>src/assets/img/photos/gallery-8.jpg" alt="sample" />
                             <div class="zoom">
                                 <span class="zoom_icon"><i class="fa fa-search-plus"></i></span>
                             </div>
@@ -849,9 +849,9 @@
                     </a>
                 </div>
                 <div class="col-sm-4 col-md-3 item">
-                    <a href="src/assets/img/photos/gallery-1.jpg" class="block fancybox" data-fancybox-group="fancybox">
+                    <a href="<?php echo site_url('web/');?>src/assets/img/photos/gallery-1.jpg" class="block fancybox" data-fancybox-group="fancybox">
                         <div class="content">
-                            <img src="src/assets/img/photos/gallery-1.jpg" alt="sample" />
+                            <img src="<?php echo site_url('web/');?>src/assets/img/photos/gallery-1.jpg" alt="sample" />
                             <div class="zoom">
                                 <span class="zoom_icon"><i class="fa fa-search-plus"></i></span>
                             </div>
@@ -859,9 +859,9 @@
                     </a>
                 </div>
                 <div class="col-sm-4 col-md-3 item">
-                    <a href="src/assets/img/photos/gallery-2.jpg" class="block fancybox" data-fancybox-group="fancybox">
+                    <a href="<?php echo site_url('web/');?>src/assets/img/photos/gallery-2.jpg" class="block fancybox" data-fancybox-group="fancybox">
                         <div class="content">
-                            <img src="src/assets/img/photos/gallery-2.jpg" alt="sample" />
+                            <img src="<?php echo site_url('web/');?>src/assets/img/photos/gallery-2.jpg" alt="sample" />
                             <div class="zoom">
                                 <span class="zoom_icon"><i class="fa fa-search-plus"></i></span>
                             </div>
@@ -869,9 +869,9 @@
                     </a>
                 </div>
                 <div class="col-sm-4 col-md-3 item">
-                    <a href="src/assets/img/photos/gallery-3.jpg" class="block fancybox" data-fancybox-group="fancybox">
+                    <a href="<?php echo site_url('web/');?>src/assets/img/photos/gallery-3.jpg" class="block fancybox" data-fancybox-group="fancybox">
                         <div class="content">
-                            <img src="src/assets/img/photos/gallery-3.jpg" alt="sample" />
+                            <img src="<?php echo site_url('web/');?>src/assets/img/photos/gallery-3.jpg" alt="sample" />
                             <div class="zoom">
                                 <span class="zoom_icon"><i class="fa fa-search-plus"></i></span>
                             </div>
@@ -879,9 +879,9 @@
                     </a>
                 </div>
                 <div class="col-sm-4 col-md-3 item">
-                    <a href="src/assets/img/photos/gallery-4.jpg" class="block fancybox" data-fancybox-group="fancybox">
+                    <a href="<?php echo site_url('web/');?>src/assets/img/photos/gallery-4.jpg" class="block fancybox" data-fancybox-group="fancybox">
                         <div class="content">
-                            <img src="src/assets/img/photos/gallery-4.jpg" alt="sample" />
+                            <img src="<?php echo site_url('web/');?>src/assets/img/photos/gallery-4.jpg" alt="sample" />
                             <div class="zoom">
                                 <span class="zoom_icon"><i class="fa fa-search-plus"></i></span>
                             </div>
@@ -1073,20 +1073,20 @@
 <!-- END mobile right burger menu -->
 
 <!-- JavaScript -->
-<script src="src/assets/js/jquery-2.1.1.min.js"></script>
-<script src="src/assets/js/bootstrap.min.js"></script>
-<script src="src/assets/js/jquery.mousewheel.min.js"></script>
-<script src="src/assets/js/jquery.easing.min.js"></script>
-<script src="src/assets/js/scrolling-nav.js"></script>
-<script src="src/assets/js/aos.js"></script>
-<script src="src/assets/js/slick.min.js"></script>
-<script src="src/assets/js/jquery.touchSwipe.min.js"></script>
-<script src="src/assets/js/moment.js"></script>
-<script src="src/assets/js/bootstrap-datepicker.js"></script>
-<script src="src/assets/js/bootstrap-datetimepicker.js"></script>
-<script src="src/assets/js/jquery.fancybox.js"></script>
-<script src="src/assets/js/loadMoreResults.js"></script>
-<script src="src/assets/js/main.js"></script>
+<script src="<?php echo site_url('web/');?>src/assets/js/jquery-2.1.1.min.js"></script>
+<script src="<?php echo site_url('web/');?>src/assets/js/bootstrap.min.js"></script>
+<script src="<?php echo site_url('web/');?>src/assets/js/jquery.mousewheel.min.js"></script>
+<script src="<?php echo site_url('web/');?>src/assets/js/jquery.easing.min.js"></script>
+<script src="<?php echo site_url('web/');?>src/assets/js/scrolling-nav.js"></script>
+<script src="<?php echo site_url('web/');?>src/assets/js/aos.js"></script>
+<script src="<?php echo site_url('web/');?>src/assets/js/slick.min.js"></script>
+<script src="<?php echo site_url('web/');?>src/assets/js/jquery.touchSwipe.min.js"></script>
+<script src="<?php echo site_url('web/');?>src/assets/js/moment.js"></script>
+<script src="<?php echo site_url('web/');?>src/assets/js/bootstrap-datepicker.js"></script>
+<script src="<?php echo site_url('web/');?>src/assets/js/bootstrap-datetimepicker.js"></script>
+<script src="<?php echo site_url('web/');?>src/assets/js/jquery.fancybox.js"></script>
+<script src="<?php echo site_url('web/');?>src/assets/js/loadMoreResults.js"></script>
+<script src="<?php echo site_url('web/');?>src/assets/js/main.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBcg5Y2D1fpGI12T8wcbtPIsyGdw-_NV1Y&amp;callback=myMap"></script>
 
 </body>
