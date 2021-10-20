@@ -4,12 +4,12 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class CategoriaModel extends Model
+class FormaPagamentoModel extends Model
 {
-    protected $table                = 'categorias';
-    protected $returnType           = 'App\Entities\Categoria';
+    protected $table                = 'formas_pagamento';
+    protected $returnType           = 'App\Entities\FormaPagamento';
     protected $useSoftDeletes       = true;
-    protected $allowedFields        = ['nome', 'ativo', 'slug'];
+    protected $allowedFields        = ['nome', 'ativo'];
 
     // Dates
     protected $useTimestamps        = true;
@@ -20,40 +20,17 @@ class CategoriaModel extends Model
 
     // Validation
     protected $validationRules    = [
-        'nome'     => 'required|min_length[2]|max_length[120]|is_unique[categorias.nome,id,{id}]',
+        'nome'     => 'required|min_length[2]|max_length[120]|is_unique[formas_pagamento.nome]',
 
     ];
 
     protected $validationMessages = [
         'nome'        => [
             'required' => 'O campo nome é obrigatório.',
-            'is_unique' => 'Essa categoria ja existe',
+            'is_unique' => 'Esse nome ja existe',
 
         ],
-
     ];
-    /**
-     * eventos callback
-     */
-    protected $beforeInsert = ['criaSlug'];
-    protected $beforeUpdate = ['criaSlug'];
-
-    protected function criaSlug(array $data){
-
-        if (isset($data['data']['nome'])){
-
-            $data['data'] ['slug'] = mb_url_title($data['data']['nome'], '-', true);
-
-        }
-
-        return $data;
-    }
-
-    /**
-     * @uso Controller usuarios no mét procurar com o autocomplete
-     * @param string  $term
-     * @return array categorias
-     */
     public function procurar($term)
     {
         if($term === null){
@@ -75,5 +52,4 @@ class CategoriaModel extends Model
             ->set('deletado_em', null)
             ->update();
     }
-
 }

@@ -17,12 +17,6 @@
 <?php echo $this->section('conteudo')?>
 
 
-<div class="row">
-    <div class="col-lg-12 grid-margin stretch-card">
-        <div class="card">
-            <div class="card-header bg-primary pb-0 pt-4">
-
-
                 <h4 class="card-title text-white"><?php echo esc($titulo); ?></h4>
 
 
@@ -45,24 +39,6 @@
 
                 <?php  endif; ?>
 
-
-
-
-<?php echo form_open("admin/produtos/cadastrarespecificacoes/$produto->id"); ?>
-
-
-
-
-<?php echo form_close(); ?>
-
-
-            </div>
-
-
-        </div>
-    </div>
-
-</div>
 
 <hr class="mt-5 mb-3">
 
@@ -103,10 +79,13 @@
 
                 <tr>
                     <td> R$&nbsp;<?php echo esc(number_format($especificacao->preco, 2)); ?></td>
+
                     <td><?php echo ($especificacao->customizavel ? '<label class="badge badge-primary">Sim</label>' : '<label class="badge badge-warning">Não</label>') ?></td>
+
                     <td class="text-center">
 
                         <button type="submit" class="btn badge badge-danger">&nbsp;X&nbsp;</button>
+
                     </td>
 
                 </tr>
@@ -116,6 +95,7 @@
                 </tbody>
 
             </table>
+
 
             <div class="mt-3">
 
@@ -138,3 +118,4 @@
 
 
 <?php echo $this->endSection()?>
+
