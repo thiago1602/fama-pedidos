@@ -51,6 +51,25 @@ $routes->group('admin', function ($routes) {
 
 
     $routes->match(['get','post'], 'formas/excluir/(:num)', 'Admin\FormasPagamento::excluir/$1' );
+
+
+    /*
+     * Entregadores
+     */
+    $routes->add('entregadores', 'Admin\Entregadores::index');
+    $routes->add('entregadores/criar', 'Admin\Entregadores::criar');
+    $routes->add('entregadores/show/(:num)', 'Admin\Entregadores::show/$1');
+    $routes->add('entregadores/editar/(:num)', 'Admin\Entregadores::editar/$1');
+    $routes->add('entregadores/desfaserexclusao/(:num)', 'Admin\Entregadores::desfaserexclusao/$1');
+
+    /*
+     * para o post
+     */
+    $routes->post('entregadores/atualizar/(:num)', 'Admin\Entregadores::atualizar/$1');
+    $routes->post('entregadores/cadastrar', 'Admin\Entregadores::cadastrar');
+
+    $routes->match(['get','post'], 'entregadores/excluir/(:num)', 'Admin\Entregadores::excluir/$1' );
+
 });
 
 /*
