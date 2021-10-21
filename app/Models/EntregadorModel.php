@@ -16,7 +16,7 @@ class EntregadorModel extends Model
     ];
 
     // Dates
-    protected $useTimestamps        = false;
+    protected $useTimestamps        = true;
     protected $dateFormat           = 'datetime';
     protected $createdField         = 'criado_em';
     protected $updatedField         = 'atualizado_em';

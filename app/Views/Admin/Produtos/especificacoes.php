@@ -75,7 +75,7 @@
                 </thead>
                 <tbody>
 
-                <?php foreach ($produtoEspecificacoes as $especificacao); ?>
+                <?php foreach ($produtoEspecificacoes as $especificacao): ?>
 
                 <tr>
                     <td> R$&nbsp;<?php echo esc(number_format($especificacao->preco, 2)); ?></td>
@@ -118,4 +118,3 @@
 
 
 <?php echo $this->endSection()?>
-
