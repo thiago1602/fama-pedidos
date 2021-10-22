@@ -3,7 +3,9 @@
 namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
+use App\Entities\Bairro;
 use App\Models\BairroModel;
+use CodeIgniter\Entity\Entity;
 
 class Bairros extends BaseController
 {
@@ -20,7 +22,7 @@ class Bairros extends BaseController
     {
         $date = [
             'titulo'=>'Listando os bairros atendidos',
-            'bairros'=>$this->bairroModel->withDeleted(true)->paginate(10),
+            'bairros'=>$this->bairroModel->withDeleted(true)->orderBy('nome', 'ASC')->paginate(10),
             'pager' => $this->bairroModel->pager,
         ];
 
@@ -48,6 +50,21 @@ class Bairros extends BaseController
 
         return $this->response->setJSON($retorno);
     }
+
+    public function criar ($id = null){
+
+
+        $bairro = new Bairro();
+
+        $data = [
+            'titulo'=>"Cadastrando novo $bairro->nome",
+            'bairro' => $bairro,
+        ];
+
+        return view('Admin/Bairros/criar', $data);
+
+    }
+
     public function show ($id = null){
 
 
@@ -81,6 +98,40 @@ class Bairros extends BaseController
         return view('Admin/Bairros/editar', $data);
 
     }
+
+    public function cadastrar(){
+
+        if ($this->request->getMethod() === 'post'){
+
+
+            $bairro = new Bairro($this->request->getPost());
+
+
+            $bairro->valor_entrega = str_replace("-", "", $bairro->valor_entrega);
+
+            if ($this->bairroModel->protect(false)->save($bairro)){
+
+                return redirect()->to(site_url("admin/bairros/show/".$this->bairroModel->getInsertID()))
+                    ->with('sucesso', "Bairro $bairro->nome cadastrado com sucesso.");
+
+            }else{
+
+                return redirect()->back()
+                    ->with('errors_model', $this->bairroModel->errors())
+                    ->with('atencao', 'Por favor verifique os erros abaixo')
+                    ->withInput();
+
+            }
+
+
+
+        }else{
+
+
+            return redirect()->back();
+        }
+    }
+
 
 
     public function atualizar($id = null)
@@ -127,7 +178,74 @@ class Bairros extends BaseController
             return redirect()->back();
         }
     }
-        private function buscaBairroOu404(int $id = null){
+
+    public function consultaCep()
+    {
+
+        if (!$this->request->isAJAX())
+        {
+            return redirect()->to(site_url());
+        }
+
+        $validacao = service('validation');
+
+        $validacao->setRule('cep', 'CEP','required|eact_lenght[9]');
+        $retorno = [];
+
+        if (! $validacao->withRequest($this->request)->run())
+        {
+
+            $retorno['erro'] = '<span class="text-danger small" >'.$validacao->getError().'</span>';
+
+            return $this->response->setJSON($retorno);
+        }
+
+        $cep = str_replace('-', '', $this->request->getGet());
+
+        /*
+         * Carregando o helper consulta_cep
+         */
+
+        helper('consulta_cep');
+
+        $consulta = $this->consultaCep($cep);
+
+        if (isset($consulta->erro) && !isset($consulta->cep))
+        {
+            $retorno['erro'] = '<span class="text-danger small" >Cep Inválido</span>';
+
+            return $this->response->setJSON($retorno);
+        }
+
+        $retorno['endereco'] = $consulta;
+
+        return $this->response->setJSON($retorno);
+
+    }
+
+    public function desfaserExclusao($id = null){
+
+
+        $bairro = $this->buscaBairroOu404($id);
+
+        if ($bairro->deletado_em == null){
+            return redirect()->back()->with('info', 'Apenas bairros excluidos podem ser recuperados');
+        }
+
+        if ($this->bairroModel->desfaserExclusao($id)){
+
+            return redirect()->back()->with('sucesso', 'Exclusão desfeita com sucesso');
+
+
+        }else{
+            return redirect()->back()
+                ->with('errors_model', $this->bairroModel->errors())
+                ->with('atencao', 'Por favor verifique os erros abaixo')
+                ->withInput();
+        }
+    }
+
+    private function buscaBairroOu404(int $id = null){
 
         if(!$id || !$bairro = $this->bairroModel->withDeleted(true)->where('id', $id)->first()){
 

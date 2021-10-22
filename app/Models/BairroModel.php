@@ -21,7 +21,7 @@ class BairroModel extends Model
     // Validation
     protected $validationRules    = [
         'nome'     => 'required|min_length[2]|max_length[120]|is_unique[bairros.nome,id,{id}]',
-        'cep'     => 'required|exact_length[9]',
+        'cidade'     => 'required|equals[Marilia]',
         'valor_entrega'     => 'required',
 
     ];
@@ -34,6 +34,10 @@ class BairroModel extends Model
         ],
         'valor_entrega'        => [
             'required' => 'O campo Valor de entrega é obrigatório.',
+
+        ],
+        'cidade'        => [
+            'equals' => 'Por favor cadastre apenas Bairros de Marilia - SP.',
 
         ],
 
