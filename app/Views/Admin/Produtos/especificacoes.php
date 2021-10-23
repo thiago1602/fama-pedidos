@@ -46,7 +46,7 @@
 
     <div class="col-md-8">
 
-        <?php if (!empty($produtoEspecificacoes)): ?>
+        <?php if (!empty($especificacoes)): ?>
 
         <p></p>
         <div class="alert alert-warning" role="alert">
@@ -75,7 +75,7 @@
                 </thead>
                 <tbody>
 
-                <?php foreach ($produtoEspecificacoes as $especificacao): ?>
+                <?php foreach ($especificacoes as $especificacao): ?>
 
                 <tr>
                     <td> R$&nbsp;<?php echo esc(number_format($especificacao->preco, 2)); ?></td>

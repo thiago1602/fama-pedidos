@@ -70,6 +70,9 @@ $routes->group('admin', function ($routes) {
 
     $routes->match(['get','post'], 'entregadores/excluir/(:num)', 'Admin\Entregadores::excluir/$1' );
 
+
+    $routes->match(['get','post'], 'expedientes', 'Admin\Expedientes::expedientes' );
+
 });
 
 /*
