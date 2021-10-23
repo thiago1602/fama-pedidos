@@ -59,7 +59,6 @@
                 </a>
 
 <?php echo form_close(); ?>
-                criar.php
 
             </div>
 
