@@ -5,28 +5,22 @@ namespace Config;
 use CodeIgniter\Config\BaseService;
 
 /**
- * Services Configuration file.
- *
- * Services are simply other classes/libraries that the system uses
- * to do its job. This is used by CodeIgniter to allow the core of the
- * framework to be swapped out easily without affecting the usage within
- * the rest of your application.
- *
- * This file holds any application-specific services, or service overrides
- * that you might need. An example has been included with the general
- * method format you should use for your service methods. For more examples,
- * see the core Services file at system/Config/Services.php.
+ * Classes Compartilhadas
+ * Há ocasiões em que você precisa exigir que apenas uma única instância de um serviço seja criada. 
+ * Isso é facilmente tratado com o método getSharedInstance () que é chamado de dentro do método de fábrica. 
+ * Isso controla a verificação de se uma instância foi criada e salva na classe e, se não, cria uma nova. 
+ * Todos os métodos de fábrica fornecem um valor $getShared = true como o último parâmetro.
+ * 
+ * @mais: https://codeigniter4.github.io/userguide/concepts/services.html
  */
-class Services extends BaseService
-{
+class Services extends BaseService {
 
-      public static function autenticacao($getShared = true)
-      {
-          if ($getShared) {
-             return static::getSharedInstance('autenticacao');
-          }
+    public static function autenticacao($getShared = true) {
+        if ($getShared) {
+            return static::getSharedInstance('autenticacao');
+        }
 
-         return new \App\Libraries\Autenticacao;
-      }
+        return new \App\Libraries\Autenticacao;
+    }
 
 }

@@ -6,8 +6,8 @@ use CodeIgniter\Filters\FilterInterface;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 
-class LoginFilter implements FilterInterface
-{
+class LoginFilter implements FilterInterface {
+
     /**
      * Do whatever processing this filter needs to do.
      * By default it should not return anything during
@@ -23,12 +23,11 @@ class LoginFilter implements FilterInterface
      *
      * @return mixed
      */
-    public function before(RequestInterface $request, $arguments = null)
-    {
-        if (!service('autenticacao')->estaLogado()){
+    public function before(RequestInterface $request, $arguments = null) {
 
-            return redirect()->to(site_url('login'))
-                ->with('info', 'Por favor realize o login primeiramente');
+        if (!service('autenticacao')->estaLogado()) {
+
+            return redirect()->to(site_url('login'))->with('info', 'Por favor realize o login primeiramente');
         }
     }
 
@@ -44,8 +43,8 @@ class LoginFilter implements FilterInterface
      *
      * @return mixed
      */
-    public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
-    {
+    public function after(RequestInterface $request, ResponseInterface $response, $arguments = null) {
         //
     }
+
 }

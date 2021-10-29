@@ -1,38 +1,38 @@
 "use strict";
 
-$(document).ready(function() {
+$(document).ready(function () {
 
     //======= START jQuery loadMoreResults ========
 
     $('.list1 .loadMore').loadMoreResults();
-    
+
     //======= END jQuery loadMoreResults ========
 
 
     //======= START Touch Swipe mobile menu ========
 
     //open left menu clicking the left menu icon
-    $('.left_menu_icon').on('click', function(event){
+    $('.left_menu_icon').on('click', function (event) {
         event.preventDefault();
         toggleLeftNav(true);
-        $("body").css({'overflow':'hidden'});
+        $("body").css({'overflow': 'hidden'});
     });
-    
+
     //open right menu clicking the right menu icon
-    $('.right_menu_icon').on('click', function(event){
+    $('.right_menu_icon').on('click', function (event) {
         event.preventDefault();
         toggleRightNav(true);
-        $("body").css({'overflow':'hidden'});
+        $("body").css({'overflow': 'hidden'});
     });
-    
-    $('.cd-close-nav, .cd-overlay').on('click', function(event){
+
+    $('.cd-close-nav, .cd-overlay').on('click', function (event) {
         event.preventDefault();
         toggleLeftNav(false);
         toggleRightNav(false);
-        $("body").css({'overflow':'auto'});
+        $("body").css({'overflow': 'auto'});
     });
     //select a new section
-    $('.cd-nav li').on('click', function(){
+    $('.cd-nav li').on('click', function () {
 
     });
 
@@ -61,7 +61,7 @@ $(document).ready(function() {
     //======= START Carousel slider ========
 
     $('.carousel').carousel({
-      arrows: true
+        arrows: true
     })
 
     //======= END Carousel slider ========
@@ -70,16 +70,12 @@ $(document).ready(function() {
 
     //======= START Menu filter ========
 
-    $(document).on('click', '#todas', function(){
+    $(document).on('click', '#todas', function () {
 
-        /*
-        Exibe todos os produtos
-         */
+        /* Exibe todos os produtos */
         $(".filter").show('1000');
 
-        /*
-        Removemos a classe active das outras opções de categoria
-         */
+        /* Removemos a classe active das outras opções da categoria */
         $(".filter-button").closest('li').removeClass("active");
 
     });
@@ -87,23 +83,21 @@ $(document).ready(function() {
 
 
 
-
-    $(document).on('click', '.filter-button', function(){
+    $(document).on('click', '.filter-button', function () {
 
         $(".filter-button").closest('li').removeClass("active")
         $(this).closest('li').addClass("active");
 
         var value = $(this).attr('data-filter');
-        
-        if(value === "active")
+
+        if (value === "active")
         {
             $('.filter').show('1000');
-        }
-        else
+        } else
         {
-            $(".filter").not('.'+value).hide('3000');
-            $('.filter').filter('.'+value).show('3000');
-            
+            $(".filter").not('.' + value).hide('3000');
+            $('.filter').filter('.' + value).show('3000');
+
         }
     });
 
@@ -132,8 +126,8 @@ $(document).ready(function() {
     })
 
     // Trigger hideNavbarSearch() when press ESC
-    $( document ).on( 'keydown', function ( e ) {
-        if ( e.keyCode === 27 ) { // ESC
+    $(document).on('keydown', function (e) {
+        if (e.keyCode === 27) { // ESC
             hideNavbarSearch()
         }
     });
@@ -162,13 +156,15 @@ $(document).ready(function() {
     // Add swipe mod to bootstrap carousel
     $(".carousel").swipe({
 
-      swipe: function(event, direction, distance, duration, fingerCount, fingerData) {
+        swipe: function (event, direction, distance, duration, fingerCount, fingerData) {
 
-        if (direction === 'left') $(this).carousel('next');
-        if (direction === 'right') $(this).carousel('prev');
+            if (direction === 'left')
+                $(this).carousel('next');
+            if (direction === 'right')
+                $(this).carousel('prev');
 
-      },
-      allowPageScroll:"vertical"
+        },
+        allowPageScroll: "vertical"
 
     });
 
@@ -177,26 +173,26 @@ $(document).ready(function() {
 
 });
 
-    //======= START Init Google Map ========
+//======= START Init Google Map ========
 
 
 function myMap() {
 
     var iconBase = 'src/assets/img/map-marker.png';
 
-    var mapProp= {
-        center:new google.maps.LatLng(51.508742,-0.120850),
-        zoom:10,
+    var mapProp = {
+        center: new google.maps.LatLng(51.508742, -0.120850),
+        zoom: 10,
         icon: iconBase,
-          zoomControlOptions: {
-              position: google.maps.ControlPosition.RIGHT_CENTER
-          },
-          streetViewControlOptions: {
-              position: google.maps.ControlPosition.RIGHT_CENTER
-          },
+        zoomControlOptions: {
+            position: google.maps.ControlPosition.RIGHT_CENTER
+        },
+        streetViewControlOptions: {
+            position: google.maps.ControlPosition.RIGHT_CENTER
+        },
     };
 
-    var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+    var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
 
     var marker = new google.maps.Marker({
         position: mapProp.center,
@@ -206,17 +202,17 @@ function myMap() {
 
 }
 
-    //======= END Init Google Map ========
+//======= END Init Google Map ========
 
 
 
 //======= START Datepicker ========
 
-$(document).ready(function() {
+$(document).ready(function () {
     $('#reserv_date').datepicker();
 });
 
-$(document).ready(function() {
+$(document).ready(function () {
     $('#reserv_time').datetimepicker({
         format: 'LT'
     });
@@ -227,26 +223,26 @@ $(document).ready(function() {
 
 //======= START Fancybox ========
 
-jQuery(document).ready(function($) {
+jQuery(document).ready(function ($) {
     $('.fancybox')
-        .fancybox({                     
-        beforeShow: function () {
-            if (this.title) {
-                // New line
-                this.title += '<br />';
-            }
-        },
-        afterShow: function () {
-        },  
-        helpers: {
-            title: {
-                type: 'inside'
-            }, //<-- add a comma to separate the following option
-            buttons: {} //<-- add this for buttons
-        },
-        closeBtn: true, // you will use the buttons now
-        arrows: true
-    });  
-});   
+            .fancybox({
+                beforeShow: function () {
+                    if (this.title) {
+                        // New line
+                        this.title += '<br />';
+                    }
+                },
+                afterShow: function () {
+                },
+                helpers: {
+                    title: {
+                        type: 'inside'
+                    }, //<-- add a comma to separate the following option
+                    buttons: {} //<-- add this for buttons
+                },
+                closeBtn: true, // you will use the buttons now
+                arrows: true
+            });
+});
 
 //======= END Fancybox ========

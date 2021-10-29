@@ -2,24 +2,20 @@
 
 namespace App\Database\Seeds;
 
-use App\Models\FormaPagamentoModel;
 use CodeIgniter\Database\Seeder;
 
-class FormasSeeder extends Seeder
-{
-    public function run()
-    {
+class FormasSeeder extends Seeder {
 
-        $formaModel = new FormaPagamentoModel();
+    public function run() {
+
+        $formaModel = new \App\Models\FormaPagamentoModel();
 
         $forma = [
-            'nome'=>'Dinheiro',
-            'ativo'=>true,
+            'nome' => 'Dinheiro',
+            'ativo' => true,
         ];
 
         $formaModel->skipValidation(true)->insert($forma);
-
-        dd($formaModel->errors());
-
     }
+
 }

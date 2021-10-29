@@ -1,12 +1,12 @@
 <?php
 
 /**
- * This file is part of CodeIgniter 4 framework.
+ * This file is part of the CodeIgniter 4 framework.
  *
  * (c) CodeIgniter Foundation <admin@codeigniter.com>
  *
- * For the full copyright and license information, please view
- * the LICENSE file that was distributed with this source code.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace CodeIgniter\Database\SQLite3;
@@ -20,224 +20,282 @@ use CodeIgniter\Database\Forge as BaseForge;
  */
 class Forge extends BaseForge
 {
-    /**
-     * @var Connection
-     */
-    protected $db;
+	/**
+	 * UNSIGNED support
+	 *
+	 * @var boolean|array
+	 */
+	protected $_unsigned = false;
 
-    /**
-     * UNSIGNED support
-     *
-     * @var array|bool
-     */
-    protected $_unsigned = false;
+	/**
+	 * NULL value representation in CREATE/ALTER TABLE statements
+	 *
+	 * @var string
+	 */
+	protected $_null = 'NULL';
 
-    /**
-     * NULL value representation in CREATE/ALTER TABLE statements
-     *
-     * @var string
-     *
-     * @internal
-     */
-    protected $null = 'NULL';
+	//--------------------------------------------------------------------
 
-    /**
-     * Constructor.
-     */
-    public function __construct(BaseConnection $db)
-    {
-        parent::__construct($db);
+	/**
+	 * Constructor.
+	 *
+	 * @param BaseConnection $db
+	 */
+	public function __construct(BaseConnection $db)
+	{
+		parent::__construct($db);
 
-        if (version_compare($this->db->getVersion(), '3.3', '<')) {
-            $this->createTableIfStr = false;
-            $this->dropTableIfStr   = false;
-        }
-    }
+		if (version_compare($this->db->getVersion(), '3.3', '<'))
+		{
+			$this->createTableIfStr = false;
+			$this->dropTableIfStr   = false;
+		}
+	}
 
-    /**
-     * Create database
-     *
-     * @param bool $ifNotExists Whether to add IF NOT EXISTS condition
-     */
-    public function createDatabase(string $dbName, bool $ifNotExists = false): bool
-    {
-        // In SQLite, a database is created when you connect to the database.
-        // We'll return TRUE so that an error isn't generated.
-        return true;
-    }
+	//--------------------------------------------------------------------
 
-    /**
-     * Drop database
-     *
-     * @throws DatabaseException
-     */
-    public function dropDatabase(string $dbName): bool
-    {
-        // In SQLite, a database is dropped when we delete a file
-        if (! is_file($dbName)) {
-            if ($this->db->DBDebug) {
-                throw new DatabaseException('Unable to drop the specified database.');
-            }
+	/**
+	 * Create database
+	 *
+	 * @param string  $dbName
+	 * @param boolean $ifNotExists Whether to add IF NOT EXISTS condition
+	 *
+	 * @return boolean
+	 */
+	public function createDatabase(string $dbName, bool $ifNotExists = false): bool
+	{
+		// In SQLite, a database is created when you connect to the database.
+		// We'll return TRUE so that an error isn't generated.
+		return true;
+	}
 
-            return false;
-        }
+	//--------------------------------------------------------------------
 
-        // We need to close the pseudo-connection first
-        $this->db->close();
-        if (! @unlink($dbName)) {
-            if ($this->db->DBDebug) {
-                throw new DatabaseException('Unable to drop the specified database.');
-            }
+	/**
+	 * Drop database
+	 *
+	 * @param string $dbName
+	 *
+	 * @return boolean
+	 * @throws DatabaseException
+	 */
+	public function dropDatabase(string $dbName): bool
+	{
+		// In SQLite, a database is dropped when we delete a file
+		if (! is_file($dbName))
+		{
+			if ($this->db->DBDebug)
+			{
+				throw new DatabaseException('Unable to drop the specified database.');
+			}
 
-            return false;
-        }
+			return false;
+		}
 
-        if (! empty($this->db->dataCache['db_names'])) {
-            $key = array_search(strtolower($dbName), array_map('strtolower', $this->db->dataCache['db_names']), true);
-            if ($key !== false) {
-                unset($this->db->dataCache['db_names'][$key]);
-            }
-        }
+		// We need to close the pseudo-connection first
+		$this->db->close();
+		if (! @unlink($dbName))
+		{
+			if ($this->db->DBDebug)
+			{
+				throw new DatabaseException('Unable to drop the specified database.');
+			}
 
-        return true;
-    }
+			return false;
+		}
 
-    /**
-     * @param mixed $field
-     *
-     * @return array|string|null
-     */
-    protected function _alterTable(string $alterType, string $table, $field)
-    {
-        switch ($alterType) {
-            case 'DROP':
-                $sqlTable = new Table($this->db, $this);
+		if (! empty($this->db->dataCache['db_names']))
+		{
+			$key = array_search(strtolower($dbName), array_map('strtolower', $this->db->dataCache['db_names']), true);
+			if ($key !== false)
+			{
+				unset($this->db->dataCache['db_names'][$key]);
+			}
+		}
 
-                $sqlTable->fromTable($table)
-                    ->dropColumn($field)
-                    ->run();
+		return true;
+	}
 
-                return '';
+	//--------------------------------------------------------------------
 
-            case 'CHANGE':
-                (new Table($this->db, $this))
-                    ->fromTable($table)
-                    ->modifyColumn($field)
-                    ->run();
+	/**
+	 * ALTER TABLE
+	 *
+	 * @param string $alterType ALTER type
+	 * @param string $table     Table name
+	 * @param mixed  $field     Column definition
+	 *
+	 * @return string|array|null
+	 */
+	protected function _alterTable(string $alterType, string $table, $field)
+	{
+		switch ($alterType)
+		{
+			case 'DROP':
+				$sqlTable = new Table($this->db, $this);
 
-                return null;
+				$sqlTable->fromTable($table)
+					->dropColumn($field)
+					->run();
 
-            default:
-                return parent::_alterTable($alterType, $table, $field);
-        }
-    }
+				return '';
+			case 'CHANGE':
+				$sqlTable = new Table($this->db, $this);
 
-    /**
-     * Process column
-     */
-    protected function _processColumn(array $field): string
-    {
-        if ($field['type'] === 'TEXT' && strpos($field['length'], "('") === 0) {
-            $field['type'] .= ' CHECK(' . $this->db->escapeIdentifiers($field['name'])
-                . ' IN ' . $field['length'] . ')';
-        }
+				$sqlTable->fromTable($table)
+						 ->modifyColumn($field)
+						 ->run();
 
-        return $this->db->escapeIdentifiers($field['name'])
-            . ' ' . $field['type']
-            . $field['auto_increment']
-            . $field['null']
-            . $field['unique']
-            . $field['default'];
-    }
+				return null;
+			default:
+				return parent::_alterTable($alterType, $table, $field);
+		}
+	}
 
-    /**
-     * Process indexes
-     */
-    protected function _processIndexes(string $table): array
-    {
-        $sqls = [];
+	//--------------------------------------------------------------------
 
-        for ($i = 0, $c = count($this->keys); $i < $c; $i++) {
-            $this->keys[$i] = (array) $this->keys[$i];
+	/**
+	 * Process column
+	 *
+	 * @param array $field
+	 *
+	 * @return string
+	 */
+	protected function _processColumn(array $field): string
+	{
+		if ($field['type'] === 'TEXT' && strpos($field['length'], "('") === 0)
+		{
+			$field['type'] .= ' CHECK(' . $this->db->escapeIdentifiers($field['name'])
+				. ' IN ' . $field['length'] . ')';
+		}
 
-            for ($i2 = 0, $c2 = count($this->keys[$i]); $i2 < $c2; $i2++) {
-                if (! isset($this->fields[$this->keys[$i][$i2]])) {
-                    unset($this->keys[$i][$i2]);
-                }
-            }
-            if (count($this->keys[$i]) <= 0) {
-                continue;
-            }
+		return $this->db->escapeIdentifiers($field['name'])
+			   . ' ' . $field['type']
+			   . $field['auto_increment']
+			   . $field['null']
+			   . $field['unique']
+			   . $field['default'];
+	}
 
-            if (in_array($i, $this->uniqueKeys, true)) {
-                $sqls[] = 'CREATE UNIQUE INDEX ' . $this->db->escapeIdentifiers($table . '_' . implode('_', $this->keys[$i]))
-                    . ' ON ' . $this->db->escapeIdentifiers($table)
-                    . ' (' . implode(', ', $this->db->escapeIdentifiers($this->keys[$i])) . ');';
+	//--------------------------------------------------------------------
 
-                continue;
-            }
+	/**
+	 * Process indexes
+	 *
+	 * @param string $table
+	 *
+	 * @return array
+	 */
+	protected function _processIndexes(string $table): array
+	{
+		$sqls = [];
 
-            $sqls[] = 'CREATE INDEX ' . $this->db->escapeIdentifiers($table . '_' . implode('_', $this->keys[$i]))
-                . ' ON ' . $this->db->escapeIdentifiers($table)
-                . ' (' . implode(', ', $this->db->escapeIdentifiers($this->keys[$i])) . ');';
-        }
+		for ($i = 0, $c = count($this->keys); $i < $c; $i++)
+		{
+			$this->keys[$i] = (array) $this->keys[$i];
 
-        return $sqls;
-    }
+			for ($i2 = 0, $c2 = count($this->keys[$i]); $i2 < $c2; $i2++)
+			{
+				if (! isset($this->fields[$this->keys[$i][$i2]]))
+				{
+					unset($this->keys[$i][$i2]);
+				}
+			}
+			if (count($this->keys[$i]) <= 0)
+			{
+				continue;
+			}
 
-    /**
-     * Field attribute TYPE
-     *
-     * Performs a data type mapping between different databases.
-     */
-    protected function _attributeType(array &$attributes)
-    {
-        switch (strtoupper($attributes['TYPE'])) {
-            case 'ENUM':
-            case 'SET':
-                $attributes['TYPE'] = 'TEXT';
-                break;
+			if (in_array($i, $this->uniqueKeys, true))
+			{
+				$sqls[] = 'CREATE UNIQUE INDEX ' . $this->db->escapeIdentifiers($table . '_' . implode('_', $this->keys[$i]))
+						  . ' ON ' . $this->db->escapeIdentifiers($table)
+						  . ' (' . implode(', ', $this->db->escapeIdentifiers($this->keys[$i])) . ');';
+				continue;
+			}
 
-            default:
-                break;
-        }
-    }
+			$sqls[] = 'CREATE INDEX ' . $this->db->escapeIdentifiers($table . '_' . implode('_', $this->keys[$i]))
+					  . ' ON ' . $this->db->escapeIdentifiers($table)
+					  . ' (' . implode(', ', $this->db->escapeIdentifiers($this->keys[$i])) . ');';
+		}
 
-    /**
-     * Field attribute AUTO_INCREMENT
-     */
-    protected function _attributeAutoIncrement(array &$attributes, array &$field)
-    {
-        if (! empty($attributes['AUTO_INCREMENT']) && $attributes['AUTO_INCREMENT'] === true
-            && stripos($field['type'], 'int') !== false) {
-            $field['type']           = 'INTEGER PRIMARY KEY';
-            $field['default']        = '';
-            $field['null']           = '';
-            $field['unique']         = '';
-            $field['auto_increment'] = ' AUTOINCREMENT';
+		return $sqls;
+	}
 
-            $this->primaryKeys = [];
-        }
-    }
+	//--------------------------------------------------------------------
 
-    /**
-     * Foreign Key Drop
-     *
-     * @throws DatabaseException
-     */
-    public function dropForeignKey(string $table, string $foreignName): bool
-    {
-        // If this version of SQLite doesn't support it, we're done here
-        if ($this->db->supportsForeignKeys() !== true) {
-            return true;
-        }
+	/**
+	 * Field attribute TYPE
+	 *
+	 * Performs a data type mapping between different databases.
+	 *
+	 * @param array $attributes
+	 *
+	 * @return void
+	 */
+	protected function _attributeType(array &$attributes)
+	{
+		switch (strtoupper($attributes['TYPE']))
+		{
+			case 'ENUM':
+			case 'SET':
+				$attributes['TYPE'] = 'TEXT';
+				break;
+			default:
+				break;
+		}
+	}
 
-        // Otherwise we have to copy the table and recreate
-        // without the foreign key being involved now
-        $sqlTable = new Table($this->db, $this);
+	//--------------------------------------------------------------------
 
-        return $sqlTable->fromTable($this->db->DBPrefix . $table)
-            ->dropForeignKey($foreignName)
-            ->run();
-    }
+	/**
+	 * Field attribute AUTO_INCREMENT
+	 *
+	 * @param array $attributes
+	 * @param array $field
+	 *
+	 * @return void
+	 */
+	protected function _attributeAutoIncrement(array &$attributes, array &$field)
+	{
+		if (! empty($attributes['AUTO_INCREMENT']) && $attributes['AUTO_INCREMENT'] === true
+			&& stripos($field['type'], 'int') !== false)
+		{
+			$field['type']           = 'INTEGER PRIMARY KEY';
+			$field['default']        = '';
+			$field['null']           = '';
+			$field['unique']         = '';
+			$field['auto_increment'] = ' AUTOINCREMENT';
+
+			$this->primaryKeys = [];
+		}
+	}
+
+	//--------------------------------------------------------------------
+
+	/**
+	 * Foreign Key Drop
+	 *
+	 * @param string $table       Table name
+	 * @param string $foreignName Foreign name
+	 *
+	 * @return boolean
+	 * @throws DatabaseException
+	 */
+	public function dropForeignKey(string $table, string $foreignName): bool
+	{
+		// If this version of SQLite doesn't support it, we're done here
+		if ($this->db->supportsForeignKeys() !== true)
+		{
+			return true;
+		}
+
+		// Otherwise we have to copy the table and recreate
+		// without the foreign key being involved now
+		$sqlTable = new Table($this->db, $this);
+
+		return $sqlTable->fromTable($this->db->DBPrefix . $table)
+			->dropForeignKey($foreignName)
+			->run();
+	}
 }

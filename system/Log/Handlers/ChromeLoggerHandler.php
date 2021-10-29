@@ -1,12 +1,12 @@
 <?php
 
 /**
- * This file is part of CodeIgniter 4 framework.
+ * This file is part of the CodeIgniter 4 framework.
  *
  * (c) CodeIgniter Foundation <admin@codeigniter.com>
  *
- * For the full copyright and license information, please view
- * the LICENSE file that was distributed with this source code.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace CodeIgniter\Log\Handlers;
@@ -24,141 +24,161 @@ use Config\Services;
  */
 class ChromeLoggerHandler extends BaseHandler
 {
-    /**
-     * Version of this library - for ChromeLogger use.
-     */
-    public const VERSION = 1.0;
+	/**
+	 * Version of this library - for ChromeLogger use.
+	 *
+	 * @var float
+	 */
+	const VERSION = 1.0;
 
-    /**
-     * The number of track frames returned from the backtrace.
-     *
-     * @var int
-     */
-    protected $backtraceLevel = 0;
+	/**
+	 * The number of track frames returned from the backtrace.
+	 *
+	 * @var integer
+	 */
+	protected $backtraceLevel = 0;
 
-    /**
-     * The final data that is sent to the browser.
-     *
-     * @var array
-     */
-    protected $json = [
-        'version' => self::VERSION,
-        'columns' => [
-            'log',
-            'backtrace',
-            'type',
-        ],
-        'rows' => [],
-    ];
+	/**
+	 * The final data that is sent to the browser.
+	 *
+	 * @var array
+	 */
+	protected $json = [
+		'version' => self::VERSION,
+		'columns' => [
+			'log',
+			'backtrace',
+			'type',
+		],
+		'rows'    => [],
+	];
 
-    /**
-     * The header used to pass the data.
-     *
-     * @var string
-     */
-    protected $header = 'X-ChromeLogger-Data';
+	/**
+	 * The header used to pass the data.
+	 *
+	 * @var string
+	 */
+	protected $header = 'X-ChromeLogger-Data';
 
-    /**
-     * Maps the log levels to the ChromeLogger types.
-     *
-     * @var array
-     */
-    protected $levels = [
-        'emergency' => 'error',
-        'alert'     => 'error',
-        'critical'  => 'error',
-        'error'     => 'error',
-        'warning'   => 'warn',
-        'notice'    => 'warn',
-        'info'      => 'info',
-        'debug'     => 'info',
-    ];
+	/**
+	 * Maps the log levels to the ChromeLogger types.
+	 *
+	 * @var array
+	 */
+	protected $levels = [
+		'emergency' => 'error',
+		'alert'     => 'error',
+		'critical'  => 'error',
+		'error'     => 'error',
+		'warning'   => 'warn',
+		'notice'    => 'warn',
+		'info'      => 'info',
+		'debug'     => 'info',
+	];
 
-    /**
-     * Constructor
-     */
-    public function __construct(array $config = [])
-    {
-        parent::__construct($config);
+	//--------------------------------------------------------------------
 
-        $this->json['request_uri'] = current_url();
-    }
+	/**
+	 * Constructor
+	 *
+	 * @param array $config
+	 */
+	public function __construct(array $config = [])
+	{
+		parent::__construct($config);
 
-    /**
-     * Handles logging the message.
-     * If the handler returns false, then execution of handlers
-     * will stop. Any handlers that have not run, yet, will not
-     * be run.
-     *
-     * @param string $level
-     * @param string $message
-     */
-    public function handle($level, $message): bool
-    {
-        // Format our message
-        $message = $this->format($message);
+		$request = Services::request(null, true);
 
-        // Generate Backtrace info
-        $backtrace = debug_backtrace(0, $this->backtraceLevel);
-        $backtrace = end($backtrace);
+		$this->json['request_uri'] = (string) $request->uri;
+	}
 
-        $backtraceMessage = 'unknown';
-        if (isset($backtrace['file'], $backtrace['line'])) {
-            $backtraceMessage = $backtrace['file'] . ':' . $backtrace['line'];
-        }
+	//--------------------------------------------------------------------
 
-        // Default to 'log' type.
-        $type = '';
+	/**
+	 * Handles logging the message.
+	 * If the handler returns false, then execution of handlers
+	 * will stop. Any handlers that have not run, yet, will not
+	 * be run.
+	 *
+	 * @param string $level
+	 * @param string $message
+	 *
+	 * @return boolean
+	 */
+	public function handle($level, $message): bool
+	{
+		// Format our message
+		$message = $this->format($message);
 
-        if (array_key_exists($level, $this->levels)) {
-            $type = $this->levels[$level];
-        }
+		// Generate Backtrace info
+		$backtrace = debug_backtrace(0, $this->backtraceLevel);
+		$backtrace = end($backtrace);
 
-        $this->json['rows'][] = [
-            [$message],
-            $backtraceMessage,
-            $type,
-        ];
+		$backtraceMessage = 'unknown';
+		if (isset($backtrace['file']) && isset($backtrace['line']))
+		{
+			$backtraceMessage = $backtrace['file'] . ':' . $backtrace['line'];
+		}
 
-        $this->sendLogs();
+		// Default to 'log' type.
+		$type = '';
 
-        return true;
-    }
+		if (array_key_exists($level, $this->levels))
+		{
+			$type = $this->levels[$level];
+		}
 
-    /**
-     * Converts the object to display nicely in the Chrome Logger UI.
-     *
-     * @param mixed $object
-     *
-     * @return array
-     */
-    protected function format($object)
-    {
-        if (! is_object($object)) {
-            return $object;
-        }
+		$this->json['rows'][] = [
+			[$message],
+			$backtraceMessage,
+			$type,
+		];
 
-        // @todo Modify formatting of objects once we can view them in browser.
-        $objectArray = (array) $object;
+		$this->sendLogs();
 
-        $objectArray['___class_name'] = get_class($object);
+		return true;
+	}
 
-        return $objectArray;
-    }
+	//--------------------------------------------------------------------
 
-    /**
-     * Attaches the header and the content to the passed in request object.
-     *
-     * @param ResponseInterface $response
-     */
-    public function sendLogs(?ResponseInterface &$response = null)
-    {
-        if ($response === null) {
-            $response = Services::response(null, true);
-        }
+	/**
+	 * Converts the object to display nicely in the Chrome Logger UI.
+	 *
+	 * @param mixed $object
+	 *
+	 * @return array
+	 */
+	protected function format($object)
+	{
+		if (! is_object($object))
+		{
+			return $object;
+		}
 
-        $data = base64_encode(utf8_encode(json_encode($this->json)));
+		// @todo Modify formatting of objects once we can view them in browser.
+		$objectArray = (array) $object;
 
-        $response->setHeader($this->header, $data);
-    }
+		$objectArray['___class_name'] = get_class($object);
+
+		return $objectArray;
+	}
+
+	//--------------------------------------------------------------------
+
+	/**
+	 * Attaches the header and the content to the passed in request object.
+	 *
+	 * @param ResponseInterface $response
+	 */
+	public function sendLogs(ResponseInterface &$response = null)
+	{
+		if (is_null($response))
+		{
+			$response = Services::response(null, true);
+		}
+
+		$data = base64_encode(utf8_encode(json_encode($this->json)));
+
+		$response->setHeader($this->header, $data);
+	}
 }

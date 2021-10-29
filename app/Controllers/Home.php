@@ -2,28 +2,25 @@
 
 namespace App\Controllers;
 
-use App\Models\CategoriaModel;
-use App\Models\ProdutoModel;
-
-class Home extends BaseController
-{
+class Home extends BaseController {
 
     private $categoriaModel;
     private $produtoModel;
 
-    public function __construct()
-    {
-        $this->categoriaModel = new CategoriaModel();
-        $this->produtoModel = new ProdutoModel();
+    public function __construct() {
+
+        $this->categoriaModel = new \App\Models\CategoriaModel();
+        $this->produtoModel = new \App\Models\ProdutoModel();
     }
-    public function index()
-    {
+
+    public function index() {
 
         $data = [
-          'titulo' => 'Seja muito bem vindo(a)',
-            'categorias'=>$this->categoriaModel->BuscaCategoriasWebHome(),
-            'produtos'=>$this->produtoModel->BuscaProdutosWebHome(),
+            'titulo' => 'Seja muito bem vindo(a)!',
+            'categorias' => $this->categoriaModel->BuscaCategoriasWebHome(),
+            'produtos' => $this->produtoModel->buscaProdutosWebHome(),
         ];
+
         return view('Home/index', $data);
     }
 

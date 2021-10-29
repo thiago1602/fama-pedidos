@@ -17,6 +17,7 @@
  * @var array                      $styles
  * @var \CodeIgniter\View\Parser   $parser
  */
+
 ?>
 <style type="text/css">
 	<?= preg_replace('#[\r\n\t ]+#', ' ', file_get_contents(__DIR__ . '/toolbar.css')) ?>
@@ -48,7 +49,7 @@
 						<img src="<?= $c['icon'] ?>">
 						<span class="hide-sm">
 							<?= $c['title'] ?>
-							<?php if ($c['badgeValue'] !== null) : ?>
+							<?php if (! is_null($c['badgeValue'])) : ?>
 								<span class="badge"><?= $c['badgeValue'] ?></span>
 							<?php endif ?>
 						</span>
@@ -93,7 +94,8 @@
 			</tr>
 			</thead>
 			<tbody>
-			<?= $this->renderTimeline($collectors, $startTime, $segmentCount, $segmentDuration, $styles) ?>
+			<?= $this->renderTimeline($collectors, $startTime, $segmentCount, $segmentDuration,
+				$styles) ?>
 			</tbody>
 		</table>
 	</div>
@@ -118,7 +120,8 @@
 		<?php if (isset($vars['varData'])) : ?>
 			<?php foreach ($vars['varData'] as $heading => $items) : ?>
 
-				<a href="javascript:void(0)" onclick="ciDebugBar.toggleDataTable('<?= strtolower(str_replace(' ', '-', $heading)) ?>'); return false;">
+				<a href="javascript:void(0)" onclick="ciDebugBar.toggleDataTable('<?= strtolower(str_replace(' ',
+					'-', $heading)) ?>'); return false;">
 					<h2><?= $heading ?></h2>
 				</a>
 
@@ -265,7 +268,7 @@
 	</div>
 </div>
 <style type="text/css">
-	<?php foreach ($styles as $name => $style) : ?>
+	<?php foreach($styles as $name => $style) : ?>
 	.<?= $name ?> {
 		<?= $style ?>
 	}

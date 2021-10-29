@@ -7,8 +7,7 @@ use CodeIgniter\Validation\FileRules;
 use CodeIgniter\Validation\FormatRules;
 use CodeIgniter\Validation\Rules;
 
-class Validation
-{
+class Validation {
     //--------------------------------------------------------------------
     // Setup
     //--------------------------------------------------------------------
@@ -24,7 +23,7 @@ class Validation
         FormatRules::class,
         FileRules::class,
         CreditCardRules::class,
-        \App\Validacoes\MinhasValidacoes::class, //carregando validacao de CPF personalizada
+        \App\Validacoes\MinhasValidacoes::class, //Carregando validação de CPF personalizada
     ];
 
     /**
@@ -34,7 +33,7 @@ class Validation
      * @var array<string, string>
      */
     public $templates = [
-        'list'   => 'CodeIgniter\Validation\Views\list',
+        'list' => 'CodeIgniter\Validation\Views\list',
         'single' => 'CodeIgniter\Validation\Views\single',
     ];
 

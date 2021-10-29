@@ -8,6 +8,8 @@ var ciDebugBar = {
 	toolbar : null,
 	icon : null,
 
+	//--------------------------------------------------------------------
+
 	init : function () {
 		this.toolbarContainer = document.getElementById('toolbarContainer');
 		this.toolbar          = document.getElementById('debug-bar');
@@ -51,6 +53,8 @@ var ciDebugBar = {
 		}
 	},
 
+	//--------------------------------------------------------------------
+
 	createListeners : function () {
 		var buttons = [].slice.call(document.querySelectorAll('#debug-bar .ci-label a'));
 
@@ -59,6 +63,8 @@ var ciDebugBar = {
 			buttons[i].addEventListener('click', ciDebugBar.showTab, true);
 		}
 	},
+
+	//--------------------------------------------------------------------
 
 	showTab: function () {
 		// Get the target tab, if any
@@ -102,6 +108,8 @@ var ciDebugBar = {
 		}
 	},
 
+	//--------------------------------------------------------------------
+
 	addClass : function (el, className) {
 		if (el.classList)
 		{
@@ -113,6 +121,8 @@ var ciDebugBar = {
 		}
 	},
 
+	//--------------------------------------------------------------------
+
 	removeClass : function (el, className) {
 		if (el.classList)
 		{
@@ -123,6 +133,8 @@ var ciDebugBar = {
 			el.className = el.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
 		}
 	},
+
+	//--------------------------------------------------------------------
 
 	/**
 	 * Toggle display of a data table
@@ -141,6 +153,8 @@ var ciDebugBar = {
 		}
 	},
 
+	//--------------------------------------------------------------------
+
 	/**
 	 *   Toggle tool bar from full to icon and icon to full
 	 */
@@ -155,6 +169,8 @@ var ciDebugBar = {
 		ciDebugBar.createCookie('debug-bar-state', open == true ? 'minimized' : 'open' , 365);
 	},
 
+	//--------------------------------------------------------------------
+
 	/**
 	 * Sets the initial state of the toolbar (open or minimized) when
 	 * the page is first loaded to allow it to remember the state between refreshes.
@@ -165,6 +181,8 @@ var ciDebugBar = {
 		ciDebugBar.icon.style.display    = open != 'open' ? 'inline-block' : 'none';
 		ciDebugBar.toolbar.style.display = open == 'open' ? 'inline-block' : 'none';
 	},
+
+	//--------------------------------------------------------------------
 
 	toggleViewsHints: function () {
 		// Avoid toggle hints on history requests that are not the initial
@@ -457,6 +475,8 @@ var ciDebugBar = {
 		}
 	},
 
+	//--------------------------------------------------------------------
+
 	setToolbarPosition: function () {
 		var btnPosition = document.getElementById('toolbar-position');
 
@@ -485,6 +505,8 @@ var ciDebugBar = {
 			}
 		}, true);
 	},
+
+	//--------------------------------------------------------------------
 
 	setToolbarTheme: function () {
 		var btnTheme    = document.getElementById('toolbar-theme');
@@ -534,6 +556,8 @@ var ciDebugBar = {
 		}, true);
 	},
 
+	//--------------------------------------------------------------------
+
 	/**
 	 * Helper to create a cookie.
 	 *
@@ -558,6 +582,8 @@ var ciDebugBar = {
 		document.cookie = name + "=" + value + expires + "; path=/; samesite=Lax";
 	},
 
+	//--------------------------------------------------------------------
+
 	readCookie : function (name) {
 		var nameEQ = name + "=";
 		var ca     = document.cookie.split(';');
@@ -576,6 +602,8 @@ var ciDebugBar = {
 		}
 		return null;
 	},
+
+	//--------------------------------------------------------------------
 
 	trimSlash: function (text) {
 		return text.replace(/^\/|\/$/g, '');
@@ -640,4 +668,5 @@ var ciDebugBar = {
 			})
 		}
 	}
+
 };

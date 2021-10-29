@@ -1,35 +1,31 @@
 <?php
 
-
 namespace App\Libraries;
 
-
-class Token
-{
+class Token {
 
     private $token;
 
-    public function __construct($token)
-    {
-        if ($token === null)
-        {
+    public function __construct($token = null) {
+
+
+        if ($token === null) {
 
             $this->token = bin2hex(random_bytes(16));
+        } else {
 
-        }else
-        {
             $this->token = $token;
         }
     }
 
-    public function getValue()
-    {
+    public function getValue() {
+
         return $this->token;
     }
 
+    public function getHash() {
 
-    public function getHash()
-    {
         return hash_hmac('sha256', $this->token, env('CHAVE_SECRETA_ATIVACAO_CONTA'));
     }
+
 }

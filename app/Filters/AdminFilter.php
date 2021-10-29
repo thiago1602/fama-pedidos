@@ -6,8 +6,8 @@ use CodeIgniter\Filters\FilterInterface;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 
-class AdminFilter implements FilterInterface
-{
+class AdminFilter implements FilterInterface {
+
     /**
      * Do whatever processing this filter needs to do.
      * By default it should not return anything during
@@ -23,13 +23,13 @@ class AdminFilter implements FilterInterface
      *
      * @return mixed
      */
-    public function before(RequestInterface $request, $arguments = null)
-    {
+    public function before(RequestInterface $request, $arguments = null) {
+
         $usuario = service('autenticacao')->pegaUsuarioLogado();
 
-        if (!$usuario ->is_admin){
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound("$usuario->nome, Não encontramos a página que você esta procurando :(");
+        if (!$usuario->is_admin) {
 
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound("$usuario->nome, não encontramos a página que você está procurando :(  ");
         }
     }
 
@@ -45,8 +45,8 @@ class AdminFilter implements FilterInterface
      *
      * @return mixed
      */
-    public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
-    {
-
+    public function after(RequestInterface $request, ResponseInterface $response, $arguments = null) {
+        //
     }
+
 }

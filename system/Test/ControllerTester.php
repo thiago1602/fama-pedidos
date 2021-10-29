@@ -1,24 +1,23 @@
 <?php
 
 /**
- * This file is part of CodeIgniter 4 framework.
+ * This file is part of the CodeIgniter 4 framework.
  *
  * (c) CodeIgniter Foundation <admin@codeigniter.com>
  *
- * For the full copyright and license information, please view
- * the LICENSE file that was distributed with this source code.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace CodeIgniter\Test;
 
-use CodeIgniter\Controller;
 use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\Response;
 use CodeIgniter\HTTP\URI;
+use CodeIgniter\HTTP\UserAgent;
 use Config\App;
 use Config\Services;
 use InvalidArgumentException;
-use Psr\Log\LoggerInterface;
 use Throwable;
 
 /**
@@ -33,261 +32,260 @@ use Throwable;
  *       ->withURI($uri)
  *       ->withBody($body)
  *       ->controller('App\Controllers\Home')
- *       ->execute('methodName');
- *
- * @deprecated Use ControllerTestTrait instead
- *
- * @codeCoverageIgnore
+ *       ->run('methodName');
  */
 trait ControllerTester
 {
-    /**
-     * Controller configuration.
-     *
-     * @var App
-     */
-    protected $appConfig;
+	/**
+	 * Controller configuration.
+	 *
+	 * @var BaseConfig
+	 */
+	protected $appConfig;
 
-    /**
-     * Request.
-     *
-     * @var IncomingRequest
-     */
-    protected $request;
+	/**
+	 * Request.
+	 *
+	 * @var Request
+	 */
+	protected $request;
 
-    /**
-     * Response.
-     *
-     * @var Response
-     */
-    protected $response;
+	/**
+	 * Response.
+	 *
+	 * @var Response
+	 */
+	protected $response;
 
-    /**
-     * Message logger.
-     *
-     * @var LoggerInterface
-     */
-    protected $logger;
+	/**
+	 * Message logger.
+	 *
+	 * @var LoggerInterface
+	 */
+	protected $logger;
 
-    /**
-     * Initialized controller.
-     *
-     * @var Controller
-     */
-    protected $controller;
+	/**
+	 * Initialized controller.
+	 *
+	 * @var Controller
+	 */
+	protected $controller;
 
-    /**
-     * URI of this request.
-     *
-     * @var string
-     */
-    protected $uri = 'http://example.com';
+	/**
+	 * URI of this request.
+	 *
+	 * @var string
+	 */
+	protected $uri = 'http://example.com';
 
-    /**
-     * Request or response body.
-     *
-     * @var string|null
-     */
-    protected $body;
+	/**
+	 * Request or response body.
+	 *
+	 * @var string
+	 */
+	protected $body;
 
-    /**
-     * Initializes required components.
-     */
-    protected function setUpControllerTester(): void
-    {
-        if (empty($this->appConfig)) {
-            $this->appConfig = config('App');
-        }
+	/**
+	 * Loads the specified controller, and generates any needed dependencies.
+	 *
+	 * @param string $name
+	 *
+	 * @return mixed
+	 */
+	public function controller(string $name)
+	{
+		if (! class_exists($name))
+		{
+			throw new InvalidArgumentException('Invalid Controller: ' . $name);
+		}
 
-        if (! $this->uri instanceof URI) {
-            $this->uri = Services::uri($this->appConfig->baseURL ?? 'http://example.com/', false);
-        }
+		if (empty($this->appConfig))
+		{
+			$this->appConfig = new App();
+		}
 
-        if (empty($this->request)) {
-            // Do some acrobatics so we can use the Request service with our own URI
-            $tempUri = Services::uri();
-            Services::injectMock('uri', $this->uri);
+		if (! $this->uri instanceof URI)
+		{
+			$this->uri = new URI($this->appConfig->baseURL ?? 'http://example.com/');
+		}
 
-            $this->withRequest(Services::request($this->appConfig, false)->setBody($this->body));
+		if (empty($this->request))
+		{
+			$this->request = new IncomingRequest($this->appConfig, $this->uri, $this->body, new UserAgent());
+		}
 
-            // Restore the URI service
-            Services::injectMock('uri', $tempUri);
-        }
+		if (empty($this->response))
+		{
+			$this->response = new Response($this->appConfig);
+		}
 
-        if (empty($this->response)) {
-            $this->response = Services::response($this->appConfig, false);
-        }
+		if (empty($this->logger))
+		{
+			$this->logger = Services::logger();
+		}
 
-        if (empty($this->logger)) {
-            $this->logger = Services::logger();
-        }
-    }
+		$this->controller = new $name();
+		$this->controller->initController($this->request, $this->response, $this->logger);
 
-    /**
-     * Loads the specified controller, and generates any needed dependencies.
-     *
-     * @return mixed
-     */
-    public function controller(string $name)
-    {
-        if (! class_exists($name)) {
-            throw new InvalidArgumentException('Invalid Controller: ' . $name);
-        }
+		return $this;
+	}
 
-        $this->controller = new $name();
-        $this->controller->initController($this->request, $this->response, $this->logger);
+	/**
+	 * Runs the specified method on the controller and returns the results.
+	 *
+	 * @param string $method
+	 * @param array  $params
+	 *
+	 * @throws InvalidArgumentException
+	 *
+	 * @return ControllerResponse
+	 */
+	public function execute(string $method, ...$params)
+	{
+		if (! method_exists($this->controller, $method) || ! is_callable([$this->controller, $method]))
+		{
+			throw new InvalidArgumentException('Method does not exist or is not callable in controller: ' . $method);
+		}
 
-        return $this;
-    }
+		// The URL helper is always loaded by the system
+		// so ensure it's available.
+		helper('url');
 
-    /**
-     * Runs the specified method on the controller and returns the results.
-     *
-     * @param array $params
-     *
-     * @throws InvalidArgumentException
-     *
-     * @return ControllerResponse
-     */
-    public function execute(string $method, ...$params)
-    {
-        if (! method_exists($this->controller, $method) || ! is_callable([$this->controller, $method])) {
-            throw new InvalidArgumentException('Method does not exist or is not callable in controller: ' . $method);
-        }
+		$result = (new ControllerResponse())
+				->setRequest($this->request)
+				->setResponse($this->response);
 
-        // The URL helper is always loaded by the system
-        // so ensure it's available.
-        helper('url');
+		$response = null;
+		try
+		{
+			ob_start();
 
-        $result = (new ControllerResponse())
-            ->setRequest($this->request)
-            ->setResponse($this->response);
+			$response = $this->controller->{$method}(...$params);
+		}
+		catch (Throwable $e)
+		{
+			$result->response()->setStatusCode($e->getCode());
+		}
+		finally
+		{
+			$output = ob_get_clean();
 
-        $response = null;
+			// If the controller returned a response, use it
+			if (isset($response) && $response instanceof Response)
+			{
+				$result->setResponse($response);
+			}
 
-        try {
-            ob_start();
+			// check if controller returned a view rather than echoing it
+			if (is_string($response))
+			{
+				$output = $response;
+				$result->response()->setBody($output);
+				$result->setBody($output);
+			}
+			elseif (! empty($response) && ! empty($response->getBody()))
+			{
+				$result->setBody($response->getBody());
+			}
+			else
+			{
+				$result->setBody('');
+			}
+		}
 
-            $response = $this->controller->{$method}(...$params);
-        } catch (Throwable $e) {
-            $code = $e->getCode();
+		// If not response code has been sent, assume a success
+		if (empty($result->response()->getStatusCode()))
+		{
+			$result->response()->setStatusCode(200);
+		}
 
-            // If code is not a valid HTTP status then assume there is an error
-            if ($code < 100 || $code >= 600) {
-                throw $e;
-            }
+		return $result;
+	}
 
-            $result->response()->setStatusCode($code);
-        } finally {
-            $output = ob_get_clean();
+	/**
+	 * Set controller's config, with method chaining.
+	 *
+	 * @param mixed $appConfig
+	 *
+	 * @return mixed
+	 */
+	public function withConfig($appConfig)
+	{
+		$this->appConfig = $appConfig;
 
-            // If the controller returned a response, use it
-            if (isset($response) && $response instanceof Response) {
-                $result->setResponse($response);
-            }
+		return $this;
+	}
 
-            // check if controller returned a view rather than echoing it
-            if (is_string($response)) {
-                $output = $response;
-                $result->response()->setBody($output);
-                $result->setBody($output);
-            } elseif (! empty($response) && ! empty($response->getBody())) {
-                $result->setBody($response->getBody());
-            } else {
-                $result->setBody('');
-            }
-        }
+	/**
+	 * Set controller's request, with method chaining.
+	 *
+	 * @param mixed $request
+	 *
+	 * @return mixed
+	 */
+	public function withRequest($request)
+	{
+		$this->request = $request;
 
-        // If not response code has been sent, assume a success
-        if (empty($result->response()->getStatusCode())) {
-            $result->response()->setStatusCode(200);
-        }
+		// Make sure it's available for other classes
+		Services::injectMock('request', $request);
 
-        return $result;
-    }
+		return $this;
+	}
 
-    /**
-     * Set controller's config, with method chaining.
-     *
-     * @param mixed $appConfig
-     *
-     * @return mixed
-     */
-    public function withConfig($appConfig)
-    {
-        $this->appConfig = $appConfig;
+	/**
+	 * Set controller's response, with method chaining.
+	 *
+	 * @param mixed $response
+	 *
+	 * @return mixed
+	 */
+	public function withResponse($response)
+	{
+		$this->response = $response;
 
-        return $this;
-    }
+		return $this;
+	}
 
-    /**
-     * Set controller's request, with method chaining.
-     *
-     * @param mixed $request
-     *
-     * @return mixed
-     */
-    public function withRequest($request)
-    {
-        $this->request = $request;
+	/**
+	 * Set controller's logger, with method chaining.
+	 *
+	 * @param mixed $logger
+	 *
+	 * @return mixed
+	 */
+	public function withLogger($logger)
+	{
+		$this->logger = $logger;
 
-        // Make sure it's available for other classes
-        Services::injectMock('request', $request);
+		return $this;
+	}
 
-        return $this;
-    }
+	/**
+	 * Set the controller's URI, with method chaining.
+	 *
+	 * @param string $uri
+	 *
+	 * @return mixed
+	 */
+	public function withUri(string $uri)
+	{
+		$this->uri = new URI($uri);
 
-    /**
-     * Set controller's response, with method chaining.
-     *
-     * @param mixed $response
-     *
-     * @return mixed
-     */
-    public function withResponse($response)
-    {
-        $this->response = $response;
+		return $this;
+	}
 
-        return $this;
-    }
+	/**
+	 * Set the method's body, with method chaining.
+	 *
+	 * @param mixed $body
+	 *
+	 * @return mixed
+	 */
+	public function withBody($body)
+	{
+		$this->body = $body;
 
-    /**
-     * Set controller's logger, with method chaining.
-     *
-     * @param mixed $logger
-     *
-     * @return mixed
-     */
-    public function withLogger($logger)
-    {
-        $this->logger = $logger;
-
-        return $this;
-    }
-
-    /**
-     * Set the controller's URI, with method chaining.
-     *
-     * @return mixed
-     */
-    public function withUri(string $uri)
-    {
-        $this->uri = new URI($uri);
-
-        return $this;
-    }
-
-    /**
-     * Set the method's body, with method chaining.
-     *
-     * @param string|null $body
-     *
-     * @return mixed
-     */
-    public function withBody($body)
-    {
-        $this->body = $body;
-
-        return $this;
-    }
+		return $this;
+	}
 }

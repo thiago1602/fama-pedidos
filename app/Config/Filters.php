@@ -7,8 +7,8 @@ use CodeIgniter\Filters\CSRF;
 use CodeIgniter\Filters\DebugToolbar;
 use CodeIgniter\Filters\Honeypot;
 
-class Filters extends BaseConfig
-{
+class Filters extends BaseConfig {
+
     /**
      * Configures aliases for Filter classes to
      * make reading things nicer and simpler.
@@ -16,13 +16,13 @@ class Filters extends BaseConfig
      * @var array
      */
     public $aliases = [
-        'csrf'     => CSRF::class,
-        'toolbar'  => DebugToolbar::class,
+        'csrf' => CSRF::class,
+        'toolbar' => DebugToolbar::class,
         'honeypot' => Honeypot::class,
-        'login' => \App\Filters\LoginFilter::class, //filtro de login
-        'admin' => \App\Filters\AdminFilter::class, //
-        'visitante' => \App\Filters\VisitanteFilter::class, //
-        'throttle' => \App\Filters\ThrottleFilter::class,
+        'login' => \App\Filters\LoginFilter::class, // Filtro de login
+        'admin' => \App\Filters\AdminFilter::class, // Filtro de admin
+        'visitante' => \App\Filters\VisitanteFilter::class, // Filtro visitante
+        'throttle' => \App\Filters\ThrottleFilter::class, // filtro que ajuda a previnir ataques de força bruta
     ];
 
     /**
@@ -34,11 +34,11 @@ class Filters extends BaseConfig
     public $globals = [
         'before' => [
             // 'honeypot',
-             'csrf',
+            'csrf',
         ],
         'after' => [
             'toolbar',
-            // 'honeypot',
+        // 'honeypot',
         ],
     ];
 
@@ -52,7 +52,7 @@ class Filters extends BaseConfig
      * @var array
      */
     public $methods = [
-            'post' => ['throttle']
+        'post' => ['throttle',]
     ];
 
     /**
@@ -67,14 +67,16 @@ class Filters extends BaseConfig
     public $filters = [
         'login' => [
             'before' => [
-                'admin/*',
+                'admin/*', // Todos os controller que estão dentro do namespace 'Admin' só serão acessados após o Login
+                'Conta(/*)?',
+                'Checkout(/*)?',
             ]
         ],
         'admin' => [
             'before' => [
-                'admin/*',
+                'admin/*', // Todos os controller que estão dentro do namespace 'Admin' só serão acessados por um administrador
             ]
         ],
-
     ];
+
 }

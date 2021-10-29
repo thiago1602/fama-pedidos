@@ -2,8 +2,8 @@
 
 namespace App\Validacoes;
 
-class MinhasValidacoes
-{
+class MinhasValidacoes {
+
     public function validaCpf(string $cpf, string &$error = null): bool {
 
         $cpf = str_pad(preg_replace('/[^0-9]/', '', $cpf), 11, '0', STR_PAD_LEFT);
@@ -27,4 +27,8 @@ class MinhasValidacoes
             return TRUE;
         }
     }
+    
+    
+ 
+
 }

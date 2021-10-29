@@ -1,41 +1,33 @@
 <?php
 
-if (!function_exists('consultaCep'))
-{
+if (!function_exists('consultaCep')) {
 
-    function consultaCep(string $cep)
-    {
+    function consultaCep(string $cep) {
+
+
         $urlViaCep = "https://viacep.com.br/ws/{$cep}/json/";
 
-        /*
-         * Abre a conexão
-         */
+
+        /* Abre a conexão */
         $ch = curl_init();
 
-        /*
-         * Definindo a url
-         */
+
+        /* Definindo a URL */
         curl_setopt($ch, CURLOPT_URL, $urlViaCep);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
 
-        /*
-         * Post
-         */
-
+        /* Executamos o POST */
         $json = curl_exec($ch);
 
-        /*
-         * Decodificando o bj json
-         */
 
+        /* Decodificando o objeto $json */
         $resultado = json_decode($json);
 
-        /*
-         * Fecha conm
-         */
 
+        /* Fechamos a conexão */
         return $resultado;
     }
 
 }
+

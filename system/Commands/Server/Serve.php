@@ -1,12 +1,12 @@
 <?php
 
 /**
- * This file is part of CodeIgniter 4 framework.
+ * This file is part of the CodeIgniter 4 framework.
  *
  * (c) CodeIgniter Foundation <admin@codeigniter.com>
  *
- * For the full copyright and license information, please view
- * the LICENSE file that was distributed with this source code.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace CodeIgniter\Commands\Server;
@@ -23,95 +23,107 @@ use CodeIgniter\CLI\CLI;
  */
 class Serve extends BaseCommand
 {
-    /**
-     * Group
-     *
-     * @var string
-     */
-    protected $group = 'CodeIgniter';
+	/**
+	 * Minimum PHP version
+	 *
+	 * @var string
+	 */
+	protected $minPHPVersion = '7.3';
 
-    /**
-     * Name
-     *
-     * @var string
-     */
-    protected $name = 'serve';
+	/**
+	 * Group
+	 *
+	 * @var string
+	 */
+	protected $group = 'CodeIgniter';
 
-    /**
-     * Description
-     *
-     * @var string
-     */
-    protected $description = 'Launches the CodeIgniter PHP-Development Server.';
+	/**
+	 * Name
+	 *
+	 * @var string
+	 */
+	protected $name = 'serve';
 
-    /**
-     * Usage
-     *
-     * @var string
-     */
-    protected $usage = 'serve';
+	/**
+	 * Description
+	 *
+	 * @var string
+	 */
+	protected $description = 'Launches the CodeIgniter PHP-Development Server.';
 
-    /**
-     * Arguments
-     *
-     * @var array
-     */
-    protected $arguments = [];
+	/**
+	 * Usage
+	 *
+	 * @var string
+	 */
+	protected $usage = 'serve';
 
-    /**
-     * The current port offset.
-     *
-     * @var int
-     */
-    protected $portOffset = 0;
+	/**
+	 * Arguments
+	 *
+	 * @var array
+	 */
+	protected $arguments = [];
 
-    /**
-     * The max number of ports to attempt to serve from
-     *
-     * @var int
-     */
-    protected $tries = 10;
+	/**
+	 * The current port offset.
+	 *
+	 * @var integer
+	 */
+	protected $portOffset = 0;
 
-    /**
-     * Options
-     *
-     * @var array
-     */
-    protected $options = [
-        '--php'  => 'The PHP Binary [default: "PHP_BINARY"]',
-        '--host' => 'The HTTP Host [default: "localhost"]',
-        '--port' => 'The HTTP Host Port [default: "8080"]',
-    ];
+	/**
+	 * The max number of ports to attempt to serve from
+	 *
+	 * @var integer
+	 */
+	protected $tries = 10;
 
-    /**
-     * Run the server
-     */
-    public function run(array $params)
-    {
-        // Collect any user-supplied options and apply them.
-        $php  = escapeshellarg(CLI::getOption('php') ?? PHP_BINARY);
-        $host = CLI::getOption('host') ?? 'localhost';
-        $port = (int) (CLI::getOption('port') ?? 8080) + $this->portOffset;
+	/**
+	 * Options
+	 *
+	 * @var array
+	 */
+	protected $options = [
+		'--php'  => 'The PHP Binary [default: "PHP_BINARY"]',
+		'--host' => 'The HTTP Host [default: "localhost"]',
+		'--port' => 'The HTTP Host Port [default: "8080"]',
+	];
 
-        // Get the party started.
-        CLI::write('CodeIgniter development server started on http://' . $host . ':' . $port, 'green');
-        CLI::write('Press Control-C to stop.');
+	/**
+	 * Run the server
+	 *
+	 * @param array $params Parameters
+	 *
+	 * @return void
+	 */
+	public function run(array $params)
+	{
+		// Collect any user-supplied options and apply them.
+		$php  = escapeshellarg(CLI::getOption('php') ?? PHP_BINARY);
+		$host = CLI::getOption('host') ?? 'localhost';
+		$port = (int) (CLI::getOption('port') ?? 8080) + $this->portOffset;
 
-        // Set the Front Controller path as Document Root.
-        $docroot = escapeshellarg(FCPATH);
+		// Get the party started.
+		CLI::write('CodeIgniter development server started on http://' . $host . ':' . $port, 'green');
+		CLI::write('Press Control-C to stop.');
 
-        // Mimic Apache's mod_rewrite functionality with user settings.
-        $rewrite = escapeshellarg(__DIR__ . '/rewrite.php');
+		// Set the Front Controller path as Document Root.
+		$docroot = escapeshellarg(FCPATH);
 
-        // Call PHP's built-in webserver, making sure to set our
-        // base path to the public folder, and to use the rewrite file
-        // to ensure our environment is set and it simulates basic mod_rewrite.
-        passthru($php . ' -S ' . $host . ':' . $port . ' -t ' . $docroot . ' ' . $rewrite, $status);
+		// Mimic Apache's mod_rewrite functionality with user settings.
+		$rewrite = escapeshellarg(__DIR__ . '/rewrite.php');
 
-        if ($status && $this->portOffset < $this->tries) {
-            $this->portOffset++;
+		// Call PHP's built-in webserver, making sure to set our
+		// base path to the public folder, and to use the rewrite file
+		// to ensure our environment is set and it simulates basic mod_rewrite.
+		passthru($php . ' -S ' . $host . ':' . $port . ' -t ' . $docroot . ' ' . $rewrite, $status);
 
-            $this->run($params);
-        }
-    }
+		if ($status && $this->portOffset < $this->tries)
+		{
+			$this->portOffset++;
+
+			$this->run($params);
+		}
+	}
 }

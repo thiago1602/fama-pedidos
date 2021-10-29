@@ -2,13 +2,14 @@
 
 namespace App\Entities;
 
-use CodeIgniter\Entity\Entity;
+use CodeIgniter\Entity;
 
-class Bairro extends Entity
-{
-    protected $dates   = [
+class Bairro extends Entity {
+
+    protected $dates = [
         'criado_em',
         'atualizado_em',
         'deletado_em',
     ];
+
 }

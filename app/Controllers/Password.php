@@ -3,129 +3,150 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use App\Models\UsuarioModel;
 
-class Password extends BaseController
-{
+class Password extends BaseController {
 
     private $usuarioModel;
 
-    public function __construct()
-    {
-        $this->usuarioModel = new UsuarioModel();
+    public function __construct() {
+
+        $this->usuarioModel = new \App\Models\UsuarioModel();
     }
-    public function esqueci()
-    {
+
+    public function esqueci() {
+
+
         $data = [
-            'titulo' => 'Esqueci a minha senha'
+            'titulo' => 'Esqueci a minha senha',
         ];
 
         return view('Password/esqueci', $data);
     }
 
-    public function processaEsqueci()
-    {
-        if ($this->request->getMethod() === 'post')
-        {
+    public function processaEsqueci() {
 
-            $usuario = $this->usuarioModel->buscaUsuarioPorEmail(
-                $this->request->getPost('email')
-            );
+        if ($this->request->getMethod() === 'post') {
 
-            if ($usuario === null || !$usuario->ativo)
-            {
-                return redirect()->to(site_url('password/esqueci'))->with('atencao', 'Não encontramos uma conta válida para esse email')
-                    ->withInput();
+            $usuario = $this->usuarioModel->buscaUsuarioPorEmail($this->request->getPost('email'));
+
+
+            if ($usuario === null || !$usuario->ativo) {
+
+                return redirect()->to(site_url('password/esqueci'))
+                                ->with('atencao', 'Não encontramos uma conta válida com esse email')
+                                ->withInput();
             }
+
+
 
             $usuario->iniciaPasswordReset();
 
 
             $this->usuarioModel->save($usuario);
 
+
             $this->enviaEmailRedefinicaoSenha($usuario);
 
-            return redirect()->to(site_url('login'))->with('sucesso', 'E-mail de redefinição de senha enviada para sua caixa de entrada');
-        }else{
+
+            return redirect()->to(site_url('login'))->with('sucesso', 'E-mail de redefinição de senha enviado para sua caixa de entrada');
+        } else {
+            /* Não é POST  */
             return redirect()->back();
         }
     }
 
-    public function reset($token = null)
-    {
-        if ($token === null){
+    public function reset($token = null) {
+
+
+        if ($token === null) {
+
             return redirect()->to(site_url('password/esqueci'))->with('atencao', 'Link inválido ou expirado');
         }
 
 
-        $usuario = $this->usuarioModel->buscaUsuarioPraResetarSenha($token);
+        $usuario = $this->usuarioModel->buscaUsuarioParaResetarSenha($token);
 
-        if ($usuario != null)
-        {
+
+        if ($usuario != null) {
+
+
             $data = [
                 'titulo' => 'Redefina a sua senha',
                 'token' => $token,
             ];
 
             return view('Password/reset', $data);
+        } else {
 
-        }else{
             return redirect()->to(site_url('password/esqueci'))->with('atencao', 'Link inválido ou expirado');
         }
-
     }
 
-    public function processaReset($token = null)
-    {
+    public function processaReset($token = null) {
 
-        if ($token === null){
+        if ($token === null) {
+
             return redirect()->to(site_url('password/esqueci'))->with('atencao', 'Link inválido ou expirado');
         }
 
 
-        $usuario = $this->usuarioModel->buscaUsuarioPraResetarSenha($token);
+        $usuario = $this->usuarioModel->buscaUsuarioParaResetarSenha($token);
 
-        if ($usuario != null)
-        {
+
+        if ($usuario != null) {
+
 
             $usuario->fill($this->request->getPost());
 
-            if ($this->usuarioModel->save($usuario))
-            {
+            if ($this->usuarioModel->save($usuario)) {
+
+                /**
+                 * Setando as colunas 'reset_hash' e 'reset_expira_em' como null ao invocar o método abaixo
+                 * que foi definido na Entidade User
+                 * 
+                 * Invalidamos o link antigo que foi enviado para o e-mail do usuário
+                 */
                 $usuario->completaPasswordReset();
 
+                /**
+                 * Atualizamos novamente o usuário com os novos valores definidos acima
+                 */
                 $this->usuarioModel->save($usuario);
 
 
-                return redirect()->to(site_url("login"))->with('sucesso', 'Senha cadastrada com sucesso');
-            }else{
+                return redirect()->to(site_url("login"))->with('sucesso', 'Nova senha cadastrada com sucesso!');
+            } else {
+
                 return redirect()->to(site_url("password/reset/$token"))
-                    ->with('errors_model', $this->usuarioModel->errors())
-                    ->with('atencao', 'Por favor verifique os erros abaixo')
-                    ->withInput();
+                                ->with('errors_model', $this->usuarioModel->errors())
+                                ->with('atencao', 'Por favor verifique os erros abaixo')
+                                ->withInput();
             }
+        } else {
 
-
-        }else{
             return redirect()->to(site_url('password/esqueci'))->with('atencao', 'Link inválido ou expirado');
         }
-        
     }
 
-    private function enviaEmailRedefinicaoSenha(object $usuario){
+    private function enviaEmailRedefinicaoSenha(object $usuario) {
+
 
         $email = service('email');
 
-        $email->setFrom('no-replay@famapedidos.com.br', 'FamaGas');
+        $email->setFrom('no-reply@famagasmarilia.com.br', 'Famagas Marilia');
         $email->setTo($usuario->email);
 
-        $email->setSubject('Redefinição de Senha');
 
-        $mensagem = view('Password/reset_email', ['token' =>$usuario->reset_token]);
+        $email->setSubject('Redefinição de senha');
+
+
+        $mensagem = view('Password/reset_email', ['token' => $usuario->reset_token]);
+
 
         $email->setMessage($mensagem);
 
-        $email->send();
 
+        $email->send();
     }
+
 }

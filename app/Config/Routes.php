@@ -11,7 +11,7 @@ if (file_exists(SYSTEMPATH . 'Config/Routes.php')) {
     require SYSTEMPATH . 'Config/Routes.php';
 }
 
-/*
+/**
  * --------------------------------------------------------------------
  * Router Setup
  * --------------------------------------------------------------------
@@ -34,45 +34,27 @@ $routes->setAutoRoute(true);
 $routes->get('/', 'Home::index');
 
 
-$routes->get('/login', 'Login::novo', ['filter' => 'visitante']);
+$routes->get('login', 'Login::novo', ['filter' => 'visitante']);
+$routes->get('registrar', 'Registrar::novo', ['filter' => 'visitante']);
 
-$routes->group('admin', function ($routes) {
+
+$routes->group('admin', function($routes) {
+
     $routes->add('formas', 'Admin\FormasPagamento::index');
     $routes->add('formas/criar', 'Admin\FormasPagamento::criar');
     $routes->add('formas/show/(:num)', 'Admin\FormasPagamento::show/$1');
     $routes->add('formas/editar/(:num)', 'Admin\FormasPagamento::editar/$1');
-    $routes->add('formas/desfaserexclusao/(:num)', 'Admin\FormasPagamento::desfaserexclusao/$1');
+    $routes->add('formas/desfazerexclusao/(:num)', 'Admin\FormasPagamento::desfazerExclusao/$1');
 
-    /*
-     * para o post
-     */
+    /* Para o POST */
     $routes->post('formas/atualizar/(:num)', 'Admin\FormasPagamento::atualizar/$1');
     $routes->post('formas/cadastrar', 'Admin\FormasPagamento::cadastrar');
 
-
-    $routes->match(['get','post'], 'formas/excluir/(:num)', 'Admin\FormasPagamento::excluir/$1' );
-
-
-    /*
-     * Entregadores
-     */
-    $routes->add('entregadores', 'Admin\Entregadores::index');
-    $routes->add('entregadores/criar', 'Admin\Entregadores::criar');
-    $routes->add('entregadores/show/(:num)', 'Admin\Entregadores::show/$1');
-    $routes->add('entregadores/editar/(:num)', 'Admin\Entregadores::editar/$1');
-    $routes->add('entregadores/desfaserexclusao/(:num)', 'Admin\Entregadores::desfaserexclusao/$1');
-
-    /*
-     * para o post
-     */
-    $routes->post('entregadores/atualizar/(:num)', 'Admin\Entregadores::atualizar/$1');
-    $routes->post('entregadores/cadastrar', 'Admin\Entregadores::cadastrar');
-
-    $routes->match(['get','post'], 'entregadores/excluir/(:num)', 'Admin\Entregadores::excluir/$1' );
+    $routes->match(['get', 'post'], 'formas/excluir/(:num)', 'Admin\FormasPagamento::excluir/$1');
 
 
-    $routes->match(['get','post'], 'expedientes', 'Admin\Expedientes::expedientes' );
 
+    $routes->match(['get', 'post'], 'expedientes', 'Admin\Expedientes::expedientes');
 });
 
 /*

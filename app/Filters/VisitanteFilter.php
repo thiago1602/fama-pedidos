@@ -6,8 +6,8 @@ use CodeIgniter\Filters\FilterInterface;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 
-class VisitanteFilter implements FilterInterface
-{
+class VisitanteFilter implements FilterInterface {
+
     /**
      * Do whatever processing this filter needs to do.
      * By default it should not return anything during
@@ -23,9 +23,25 @@ class VisitanteFilter implements FilterInterface
      *
      * @return mixed
      */
-    public function before(RequestInterface $request, $arguments = null)
-    {
-        //
+    public function before(RequestInterface $request, $arguments = null) {
+
+
+        $autenticacao = service('autenticacao');
+
+        if ($autenticacao->estaLogado()) {
+
+
+            $usuario = $autenticacao->pegaUsuarioLogado();
+
+
+            if ($usuario->is_admin) {
+
+                return redirect()->to(site_url('admin/home'));
+            }
+
+
+            return redirect()->to(site_url('/'));
+        }
     }
 
     /**
@@ -40,21 +56,8 @@ class VisitanteFilter implements FilterInterface
      *
      * @return mixed
      */
-    public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
-    {
-        $autenticacao = service('autenticacao');
-
-        if ($autenticacao->estaLogado()){
-
-            $usuario = $autenticacao->pegaUsuarioLogado();
-
-            if ($usuario->is_aadmin)
-            {
-                return redirect()->to(site_url('admin/home'));
-            }
-
-            return redirect()->to(site_url('/'));
-
-        }
+    public function after(RequestInterface $request, ResponseInterface $response, $arguments = null) {
+        //
     }
+
 }
