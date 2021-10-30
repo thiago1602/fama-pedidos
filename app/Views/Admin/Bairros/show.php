@@ -23,7 +23,7 @@
             <div class="card-header bg-primary pb-0 pt-4">
 
 
-                <h4 class="card-title text-white"><?php echo esc($titulo); ?> | Curitiba</h4>
+                <h4 class="card-title text-white"><?php echo esc($titulo); ?> | Marília</h4>
 
             </div>
             <div class="card-body">

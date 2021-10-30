@@ -26,7 +26,7 @@
 
 
                 <div class="ui-widget">
-                    <input id="query" name="query" placeholder="Pesquise por um bairro de Curitiba" class="form-control bg-light mb-5">
+                    <input id="query" name="query" placeholder="Pesquise por um bairro de Marilia" class="form-control bg-light mb-5">
                 </div>
 
 
@@ -144,7 +144,7 @@
 
                             var data = [
                                 {
-                                    label: 'Bairro de Curitiba não encontrado',
+                                    label: 'Bairro de Marília não encontrado',
                                     value: -1
                                 }
                             ];
