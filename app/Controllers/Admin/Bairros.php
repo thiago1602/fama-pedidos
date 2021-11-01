@@ -161,7 +161,8 @@ class Bairros extends BaseController {
         }
     }
 
-    public function consultaCep() {
+    public function consultaCep()
+    {
 
 
         if (!$this->request->isAJAX()) {
@@ -193,6 +194,7 @@ class Bairros extends BaseController {
 
 
         $consulta = consultaCep($cep);
+
 
 
         if (isset($consulta->erro) && !isset($consulta->cep)) {

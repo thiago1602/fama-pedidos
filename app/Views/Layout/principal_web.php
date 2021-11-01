@@ -54,20 +54,20 @@
             }
 
 
-            .btn-food{
+            .btn-fama{
 
                 background-color: #990100; 
                 color: white !important; 
                 font-family: 'Montserrat-Bold';
             }
 
-            .fonte-food{
+            .fonte-fama{
 
                 color: #990100 !important; 
                 font-family: 'Montserrat-Bold';
             }
 
-            .panel-food{
+            .panel-fama{
 
                 background: #990100 !important; 
                 color: white !important; 
@@ -134,10 +134,7 @@
                                 <div class="carousel-caption">
                                     <div class="fadeUp item_img">
                                         <img src="<?php echo site_url('web/'); ?>src/assets/img/photos/pizza.png" alt="sample" />
-                                        <div class="item_badge">
-                                            <span class="badge_btext">20%</span>
-                                            <span class="badge_stext">OFF</span>
-                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -358,7 +355,7 @@
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-3">
-                                        <h4 class="footer_ttl footer_ttl_padd">Contate-nos us</h4>
+                                        <h4 class="footer_ttl footer_ttl_padd">Contate-nos</h4>
                                         <div class="footer_border">
                                             <div class="footer_cnt">
                                                 <i class="fa fa-map-marker"></i>
