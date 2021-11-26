@@ -58,7 +58,7 @@ class Carrinho extends BaseController {
 
             if ($this->expedienteHoje->situacao == false) {
 
-                return redirect()->back()->with('expediente', 'Hoje estamos fechados para dar uma geral na casa.');
+                return redirect()->back()->with('expediente', 'No momento estamos fechado.');
             }
 
             if ($this->horaAtual > $this->expedienteHoje->fechamento || $this->horaAtual < $this->expedienteHoje->abertura) {

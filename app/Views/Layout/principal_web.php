@@ -314,7 +314,7 @@
                                 <div class="row">
                                     <div class="col-sm-6 col-md-4">
                                         <h4 class="footer_ttl footer_ttl_padd">Sobre nós</h4>
-                                        <p class="footer_txt">Ha mais de 30 anos no mercado de GLP, nós da Famagas Marília procuramos sempre priorizar um bom atendimento e entregas rapidas,
+                                        <p class="footer_txt">Há mais de 30 anos no mercado de GLP, nós da Famagas Marília procuramos sempre priorizar um bom atendimento e entregas rapidas,
                                             com foco em satisfação total de nossos clientes e bem-estar de nossos colaboradores. </p>
                                     </div>
                                     <div class="col-sm-6 col-md-5">
